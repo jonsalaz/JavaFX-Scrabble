@@ -12,7 +12,7 @@ public class Trie {
 
         public TrieNode() {
             terminal = false;
-            children = new TrieNode[ALPHABET_SIZE]
+            children = new TrieNode[ALPHABET_SIZE];
             for (int i = 0; i < ALPHABET_SIZE; i++) {
                 children[i] = null;
             }

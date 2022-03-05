@@ -7,8 +7,8 @@ public class Trie {
     private final TrieNode ROOT = new TrieNode();
 
     private static class TrieNode {
-        TrieNode[] children;
-        boolean terminal;
+        private TrieNode[] children;
+        private boolean terminal;
 
         public TrieNode() {
             terminal = false;
@@ -35,11 +35,12 @@ public class Trie {
     private void insert(String word) {
         int index;
         int length = word.length();
+        word = word.replace("[^A-Za-z]+", "");
         TrieNode current = ROOT;
 
         for (int level = 0; level < length; level ++) {
-            //Adjusts ascii values for lower case letters to be 0-25 to match the index
-            //"pointer array".
+            //Adjusts ascii values for lower case letters to be 0-25 to match the indexing
+            //for children of the current node.
             index = word.charAt(level) - 97;
             if (current.children[index] == null) {
                 current.children[index] = new TrieNode();

@@ -6,6 +6,7 @@ public class Board {
     private Tile[][] board;
 
     public Board(File file) throws FileNotFoundException {
+        //TODO: Readjust parsing in order to take in multiple configs in main
         Scanner scanner = new Scanner(file);
         int dim = scanner.nextInt();
         board = new Tile[dim][dim];

@@ -5,9 +5,8 @@ import java.util.Scanner;
 public class Tray {
     Tile[] tray;
 
-    public Tray(File file) throws FileNotFoundException {
-        Scanner scanner = new Scanner(file);
-        String letters = scanner.next();
+    public Tray(String letters) throws FileNotFoundException {
+        tray = new Tile[letters.length()];
         for(int i = 0; i < letters.length(); i++) {
             tray[i] = new Tile(letters.charAt(i));
         }

@@ -1,14 +1,17 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Tray {
-    Tile[] tray;
+    private ArrayList<Tile> tray;
 
     public Tray(String letters) throws FileNotFoundException {
-        tray = new Tile[letters.length()];
+        this.tray = new ArrayList<>();
         for(int i = 0; i < letters.length(); i++) {
-            tray[i] = new Tile(letters.charAt(i));
+            tray.add(new Tile(letters.charAt(i)));
         }
+    }
+
+    public ArrayList<Tile> getTray() {
+        return tray;
     }
 }

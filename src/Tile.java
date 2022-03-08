@@ -26,4 +26,30 @@ public class Tile{
 
         this.placedLetter = letter;
     }
+
+    @Override
+    public String toString() {
+        if (placedLetter != ' ') {
+            return " " + Character.toString(placedLetter);
+        }
+        else {
+            String temp = "";
+
+            if (wm == 1) {
+                temp += ".";
+            }
+            else {
+                temp += Integer.toString(wm);
+            }
+
+            if (lm == 1) {
+                temp += ".";
+            }
+            else {
+                temp += Integer.toString(lm);
+            }
+
+            return temp;
+        }
+    }
 }

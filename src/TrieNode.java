@@ -17,5 +17,7 @@ public class TrieNode {
         return children;
     }
 
-
+    public boolean isTerminal() {
+        return terminal;
+    }
 }

@@ -1,9 +1,9 @@
-public class Tile{
+public class Square {
     private int wm;
     private int lm;
     private char placedLetter;
 
-    public Tile(char wm, char lm) {
+    public Square(char wm, char lm) {
         if(wm == '.'){
             this.wm = 1;
         }
@@ -20,7 +20,7 @@ public class Tile{
         this.placedLetter = ' ';
     }
 
-    public Tile(char letter) {
+    public Square(char letter) {
         this.wm = 1;
         this.lm = 1;
 

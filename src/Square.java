@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Square {
     private int wm;
     private int lm;
@@ -25,6 +27,16 @@ public class Square {
         this.lm = 1;
 
         this.placedLetter = new Tile(letter);
+    }
+
+    public Tile getPlacedLetter() {
+        return placedLetter;
+    }
+
+    public ArrayList<Character> getCrossCheck() {
+        ArrayList<Character> crossCheck = new ArrayList<>();
+        //TODO: Determine CrossChecks either in function or precompute for each row as necessary.
+        return crossCheck;
     }
 
     @Override

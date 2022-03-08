@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -26,7 +27,7 @@ public class Main {
         while(true) {
             System.out.println("Please enter your tray config files");
             try {
-                config = new File(scanner.nextLine());
+                config = new File("testing/testConfig.txt");
                 fileScanner = new Scanner(config);
                 break;
             } catch (Exception e) {
@@ -42,10 +43,17 @@ public class Main {
             int dim;
 
             // Parse file for dimensions.
-            dim = fileScanner.nextInt();
+            try {
+                dim = fileScanner.nextInt();
+            }
+            catch(InputMismatchException e) {
+                System.out.println(fileScanner.next());
+                return;
+            }
 
             // Parse file for row values.
             String[] rows = new String[dim];
+            fileScanner.nextLine();
             for(int i = 0; i < dim; i++) {
                 rows[i] = fileScanner.nextLine();
             }

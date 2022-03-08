@@ -56,7 +56,12 @@ public class Main {
 
             Solver solver = new Solver(board, tray, trie);
 
+            System.out.println("Input Board:");
+            System.out.println(board);
+            System.out.println(tray);
             solver.solve();
+            System.out.println("Solution Board:");
+            System.out.println(board);
         }
     }
 }

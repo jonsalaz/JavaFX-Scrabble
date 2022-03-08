@@ -10,8 +10,32 @@ public class Tray {
         }
     }
 
-    public ArrayList<Tile> getTray() {
-        return tray;
+    public boolean contains(char c) {
+        for (Tile tile:
+             tray) {
+            if (tile.getLetter() == c) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Tile get(char c) {
+        for (Tile tile:
+                tray) {
+            if (tile.getLetter() == c) {
+                return tile;
+            }
+        }
+        return null;
+    }
+
+    public void add(Tile tile) {
+        tray.add(tile);
+    }
+
+    public void remove(Tile tile) {
+        tray.remove(tile);
     }
 
     @Override

@@ -12,6 +12,10 @@ public class Tile {
         points.put(c, p);
     }
 
+    public char getLetter() {
+        return letter;
+    }
+
     @Override
     public String toString() {
         return Character.toString(letter);

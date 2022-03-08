@@ -13,6 +13,8 @@ public class Solver {
         // TODO: solve
     }
 
+    //TODO: Consider passing in the index of the anchor square rather than the actual square, then accessing the square
+    // once inside the function so that you can more easily navigate to the square to the right.
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){
         extendRight(partialWord, N, anchorSquare);
         if(limit > 0) {
@@ -28,6 +30,32 @@ public class Solver {
     }
 
     private void extendRight(String partialWord, TrieNode N, Square square){
+        if(square.getPlacedLetter() == null) {
+            if(N.isTerminal()) {
+                //TODO: legalMove(partialWord);
+            }
+            for(int i = 0; i < N.getChildren().length; i++) {
+                if((N.getChildren()[i] != null)
+                        && (tray.contains((char) (i+97)))
+                        && square.getCrossCheck().contains((char) (i+97))) {
+                    Tile l = tray.get((char) (i+97));
+                    TrieNode newN = N.getChildren()[i];
+                    //TODO: Let nextSquare be the square to the right of square.
+                    Square nextSquare = null;
 
+                    extendRight(partialWord + l.getLetter(), newN, nextSquare);
+                }
+            }
+        }
+        else {
+            Tile l = square.getPlacedLetter();
+            for (int i = 0; i < N.getChildren().length; i++) {
+                if(N.getChildren()[l.getLetter()-97] != null) {
+                    //TODO: Let nextSquare be the square to the right of square.
+                    Square nextSquare = null;
+                    extendRight(partialWord + l.getLetter(), N.getChildren()[l.getLetter()-97], nextSquare);
+                }
+            }
+        }
     }
 }

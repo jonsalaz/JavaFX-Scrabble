@@ -50,7 +50,9 @@ public class Main {
             board = new Board(dim, rows);
             tray = new Tray(scanner.nextLine());
 
-            // TODO: Solve
+            Solver solver = new Solver(board, tray, trie);
+
+            solver.solve();
         }
     }
 }

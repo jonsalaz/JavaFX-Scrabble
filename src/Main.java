@@ -13,7 +13,6 @@ public class Main {
 
 
         // Trie Creation
-        Scanner scanner = new Scanner(System.in);
         while(true) {
             try {
                 trie = new Trie("testing/twl06.txt");
@@ -24,6 +23,7 @@ public class Main {
         }
 
         // User input for config file.
+        Scanner scanner = new Scanner(System.in);
         while(true) {
             System.out.println("Please enter your tray config files");
             try {
@@ -60,7 +60,7 @@ public class Main {
 
             // Create Necessary Objects for solver.
             board = new Board(dim, rows);
-            tray = new Tray(scanner.nextLine());
+            tray = new Tray(fileScanner.nextLine());
 
             Solver solver = new Solver(board, tray, trie);
 

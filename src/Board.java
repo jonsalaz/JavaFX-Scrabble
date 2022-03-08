@@ -26,7 +26,9 @@ public class Board {
             for (int c = 0; c < board[r].length; c++) {
                 temp+= board[r][c].toString() + " ";
             }
-            temp += "\n";
+            if(r != board.length-1) {
+                temp += "\n";
+            }
         }
         return temp;
     }

@@ -4,13 +4,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // Necessary objects for game state parsing.
+        Scanner fileScanner;
+        File config;
+        // Trie needed for word checking.
         Trie trie;
 
-        File config;
-        Scanner fileScanner;
 
+        // Trie Creation
         Scanner scanner = new Scanner(System.in);
-
         while(true) {
             try {
                 trie = new Trie("testing/twl06.txt");
@@ -20,6 +22,7 @@ public class Main {
             }
         }
 
+        // User input for config file.
         while(true) {
             System.out.println("Please enter your tray config files");
             try {
@@ -31,6 +34,7 @@ public class Main {
             }
         }
 
+        // Perform solving for every game state given in config file.
         while(fileScanner.hasNextLine()) {
             // Necessary objects to run solver.
             Board board;

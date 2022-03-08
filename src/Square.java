@@ -1,7 +1,7 @@
 public class Square {
     private int wm;
     private int lm;
-    private char placedLetter;
+    private Tile placedLetter;
 
     public Square(char wm, char lm) {
         if(wm == '.'){
@@ -17,20 +17,20 @@ public class Square {
         else {
             this.lm = Character.getNumericValue(lm);
         }
-        this.placedLetter = ' ';
+        this.placedLetter = null;
     }
 
     public Square(char letter) {
         this.wm = 1;
         this.lm = 1;
 
-        this.placedLetter = letter;
+        this.placedLetter = new Tile(letter);
     }
 
     @Override
     public String toString() {
-        if (placedLetter != ' ') {
-            return " " + Character.toString(placedLetter);
+        if (placedLetter != null) {
+            return " " + placedLetter;
         }
         else {
             String temp = "";

@@ -12,6 +12,23 @@ public class Main {
         Trie trie;
 
 
+        // Freq List
+        try{
+            File file = new File("testing/freqLetter.txt");
+            Scanner freqScanner = new Scanner(file);
+            while(freqScanner.hasNextLine()){
+                char c;
+                int p;
+                String line;
+
+                line = freqScanner.nextLine();
+                Tile.addKey(line.charAt(0), line.charAt(2));
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
         // Trie Creation
         while(true) {
             try {

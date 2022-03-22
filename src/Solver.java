@@ -11,8 +11,6 @@ public class Solver {
         this.trie = trie;
     }
 
-    //TODO: Consider transposing board when doing down plays instead of trying to track whether moving down or across.
-    // This is how nextSquare is currently calculated.
     public void solve() {
         //TODO: Repeat checking for moves once the board has been transposed (dont forget to transpose again
         // to restore it's initial state).
@@ -31,6 +29,9 @@ public class Solver {
                 limit += 1;
             }
         }
+
+        //TODO: Repeat checking for moves once the board has been transposed (dont forget to transpose again
+        // to restore it's initial state).
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){

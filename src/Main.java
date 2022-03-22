@@ -22,7 +22,7 @@ public class Main {
                 String line;
 
                 line = freqScanner.nextLine();
-                Tile.addKey(line.charAt(0), line.charAt(2));
+                Tile.addKey(line.charAt(0), Integer.parseInt(line.substring(2)));
             }
         }
         catch(Exception e){

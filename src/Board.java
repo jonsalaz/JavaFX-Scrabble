@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Board {
     private Square[][] board;
 
@@ -33,5 +35,25 @@ public class Board {
 
     public Square getSquare(int row, int column) {
         return board[row][column];
+    }
+
+    public ArrayList<Square> getAnchors() {
+
+        ArrayList<Square> anchors = new ArrayList<>();
+        for(int c = 0; c < board.length; c++) {
+            for(int r = 0; r < board[c].length; r++) {
+                //Checks to see if the current square is empty and next to a non empty square.
+                if ((board[r][c].getPlacedLetter() == null)
+                        && board[r-1][c].getPlacedLetter() != null ||
+                        board[r+1][c].getPlacedLetter() != null ||
+                        board[r][c-1].getPlacedLetter() != null ||
+                        board[r][c+1].getPlacedLetter() != null) {
+                    //TODO: Consider implementing as a map that maps the row to an array of column values indicating
+                    // which columns have an anchor point within a given row.
+                    anchors.add(board[r][c]);
+                }
+            }
+        }
+        return anchors;
     }
 }

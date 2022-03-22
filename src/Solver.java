@@ -11,8 +11,14 @@ public class Solver {
         this.trie = trie;
     }
 
+    //TODO: Consider transposing board when doing down plays instead of trying to track whether moving down or across.
+    // This is how nextSquare is currently calculated.
     public void solve() {
         // TODO: solve
+//        To generate all moves from Anchorsquare, assuming
+//        that there are k non-anchor squares to the left of it, we
+//        call
+//        Leftpart("", root of dawg, k)
     }
 
     //TODO: Consider passing in the index of the anchor square rather than the actual square, then accessing the square
@@ -39,11 +45,10 @@ public class Solver {
             for(int i = 0; i < N.getChildren().length; i++) {
                 if((N.getChildren()[i] != null)
                         && (tray.contains((char) (i+97)))
-                        && square.getCrossCheck().contains((char) (i+97))) {
+                        && square.getCrossCheck(board)[i]) {
                     Tile l = tray.get((char) (i+97));
                     TrieNode newN = N.getChildren()[i];
-                    //TODO: Let nextSquare be the square to the right of square.
-                    Square nextSquare = null;
+                    Square nextSquare = board.getSquare(square.getRow(), square.getColumn() + 1);
 
                     extendRight(partialWord + l.getLetter(), newN, nextSquare);
                 }
@@ -53,8 +58,7 @@ public class Solver {
             Tile l = square.getPlacedLetter();
             for (int i = 0; i < N.getChildren().length; i++) {
                 if(N.getChildren()[l.getLetter()-97] != null) {
-                    //TODO: Let nextSquare be the square to the right of square.
-                    Square nextSquare = null;
+                    Square nextSquare = board.getSquare(square.getRow(), square.getColumn() + 1);
                     extendRight(partialWord + l.getLetter(), N.getChildren()[l.getLetter()-97], nextSquare);
                 }
             }

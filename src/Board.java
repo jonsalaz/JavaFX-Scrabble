@@ -30,4 +30,8 @@ public class Board {
         }
         return temp;
     }
+
+    public Square getSquare(int row, int column) {
+        return board[row][column];
+    }
 }

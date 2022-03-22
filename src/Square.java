@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 
 public class Square {
+    private int row;
+    private int column;
     private int wm;
     private int lm;
     private Tile placedLetter;
 
-    public Square(char wm, char lm) {
+    public Square(char wm, char lm, int row, int column) {
         if(wm == '.'){
             this.wm = 1;
         }
@@ -20,13 +22,17 @@ public class Square {
             this.lm = Character.getNumericValue(lm);
         }
         this.placedLetter = null;
+        this.row = row;
+        this.column = column;
     }
 
-    public Square(char letter) {
+    public Square(char letter, int row, int column) {
         this.wm = 1;
         this.lm = 1;
 
         this.placedLetter = new Tile(letter);
+        this.row = row;
+        this.column = column;
     }
 
     public Tile getPlacedLetter() {

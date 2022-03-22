@@ -8,10 +8,10 @@ public class Board {
             String[] places = rows[r].split(" ");
             for (int c = 0; c < dim; c++) {
                 if(places[c].length() == 2) {
-                    board[r][c] = new Square(places[c].charAt(0), places[c].charAt(1));
+                    board[r][c] = new Square(places[c].charAt(0), places[c].charAt(1), r, c);
                 }
                 else {
-                    board[r][c] = new Square(places[c].charAt(0));
+                    board[r][c] = new Square(places[c].charAt(0), r, c);
                 }
             }
         }

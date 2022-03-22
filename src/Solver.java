@@ -1,3 +1,5 @@
+import java.util.Map;
+
 public class Solver {
     private Board board;
     private Tray tray;
@@ -32,7 +34,7 @@ public class Solver {
     private void extendRight(String partialWord, TrieNode N, Square square){
         if(square.getPlacedLetter() == null) {
             if(N.isTerminal()) {
-                //TODO: legalMove(partialWord);
+                legalMove(partialWord);
             }
             for(int i = 0; i < N.getChildren().length; i++) {
                 if((N.getChildren()[i] != null)
@@ -57,5 +59,9 @@ public class Solver {
                 }
             }
         }
+    }
+
+    private void legalMove(String move) {
+        //TODO: Track the highest-scoring move and discard the rest.
     }
 }

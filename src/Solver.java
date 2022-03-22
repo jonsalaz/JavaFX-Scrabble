@@ -12,8 +12,6 @@ public class Solver {
     }
 
     public void solve() {
-        //TODO: Repeat checking for moves once the board has been transposed (dont forget to transpose again
-        // to restore it's initial state).
         ArrayList<Square> anchorSquares = board.getAnchors();
         int limit = 0;
 

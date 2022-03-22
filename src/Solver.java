@@ -5,6 +5,11 @@ public class Solver {
     private Tray tray;
     private Trie trie;
 
+    private int moveRow;
+    private int moveCol;
+    private String moveWord;
+    private int moveScore;
+
     public Solver(Board board, Tray tray, Trie trie) {
         this.board = board;
         this.tray = tray;
@@ -44,6 +49,8 @@ public class Solver {
 
         //Put board back in original state.
         board.transpose();
+
+        //TODO: Play the move (taking into account whether or not the move is played across of down).
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){
@@ -63,7 +70,7 @@ public class Solver {
     private void extendRight(String partialWord, TrieNode N, Square square){
         if(square.getPlacedLetter() == null) {
             if(N.isTerminal()) {
-                legalMove(partialWord);
+                legalMove(partialWord, square.getRow(), square.getColumn());
             }
             for(int i = 0; i < N.getChildren().length; i++) {
                 if((N.getChildren()[i] != null)
@@ -88,7 +95,25 @@ public class Solver {
         }
     }
 
-    private void legalMove(String move) {
-        //TODO: Track the highest-scoring move.
+    private void legalMove(String move, int row, int column) {
+        int tempScore = 0;
+        int wordMult = 1;
+        int counter = 0;
+
+        for (int i = move.length()-1; i >= 0; i++) {
+            wordMult *= board.getSquare(row, column-i).getWordMultiplier();
+            tempScore += Tile.getScore(move.charAt(counter)) * board.getSquare(row,
+                                                                        column-i).getLetterMultiplier();
+            counter++;
+        }
+
+        tempScore *= wordMult;
+        if(tempScore > moveScore) {
+            moveScore = tempScore;
+            moveRow = row;
+            moveCol = column - move.length();
+            moveWord = move;
+        }
+        System.out.println("There is a legal move:" + moveWord);
     }
 }

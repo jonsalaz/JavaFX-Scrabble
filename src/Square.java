@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Square {
@@ -40,20 +39,47 @@ public class Square {
         return placedLetter;
     }
 
-    public Boolean[] getCrossCheck(Board board) {
+    public Boolean[] getCrossCheck(Board board, Trie trie) {
         Boolean[] crossCheck = new Boolean[26];
-        //TODO: Determine CrossChecks either in function or precompute for each row as necessary.
-
+        //If the above and below squares are emtpy all characters are valid moves.
         if(board.getSquare(row-1, column).getPlacedLetter() == null
                 && board.getSquare(row+1, column).getPlacedLetter() == null) {
             Arrays.fill(crossCheck, true);
             return crossCheck;
         }
-        else if(board.getSquare(row-1,column).getPlacedLetter() != null) {
-            //TODO: Accoutn for crosschecks when the above is not empty.
+        //It is necessary to check both above and below in case the square is "sandwiched" between two already complete
+        //words.
+
+        //If the below tile is not null, must search the binary tree for letters that work with the current tile
+        //as our leading character of the word.
+        if(board.getSquare(row+1,column).getPlacedLetter() != null) {
+            Square temp = board.getSquare(row+1,column);
+            StringBuilder word = new StringBuilder();
+            while(temp.getPlacedLetter() != null) {
+                word.append(temp.getPlacedLetter());
+                temp = board.getSquare(temp.getRow()+1, column);
+            }
+            String finalWord = word.toString();
+
+            for(int i = 0; i < 26; i++) {
+                String key = ((char) (i+'a')) + finalWord;
+                crossCheck[i] = trie.search(key);
+            }
         }
-        else if(board.getSquare(row+1, column).getPlacedLetter() != null) {
-            //TODO: Account for crosschecks when the below is not empty.
+        //If the above tile is not null, must search the binary tree for letters that work with the current tile as
+        //our tail character of the word.
+        if(board.getSquare(row-1, column).getPlacedLetter() != null) {
+            Square temp = board.getSquare(row-1,column);
+            StringBuilder word = new StringBuilder();
+            while(temp.getPlacedLetter() != null) {
+                word.insert(0, temp.getPlacedLetter());
+                temp = board.getSquare(temp.getRow()-1, column);
+            }
+            String finalWord = word.toString();
+            for(int i = 0; i < 26; i++) {
+                String key = finalWord + ((char) (i+'a'));
+                crossCheck[i] = trie.search(key);
+            }
         }
         return crossCheck;
     }

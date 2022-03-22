@@ -70,4 +70,12 @@ public class Square {
             return temp;
         }
     }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public int getRow() {
+        return row;
+    }
 }

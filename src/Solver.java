@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Solver {
     private Board board;
     private Tray tray;
@@ -20,6 +22,8 @@ public class Solver {
 //        that there are k non-anchor squares to the left of it, we
 //        call
 //        Leftpart("", root of dawg, k)
+
+        ArrayList<Square> anchorSquares = board.getAnchors();
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){

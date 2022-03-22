@@ -39,6 +39,14 @@ public class Square {
         return placedLetter;
     }
 
+    public int getWordMultiplier() {
+        return wm;
+    }
+
+    public int getLetterMultiplier() {
+        return lm;
+    }
+
     public Boolean[] getCrossCheck(Board board, Trie trie) {
         Boolean[] crossCheck = new Boolean[26];
         //If the above and below squares are emtpy all characters are valid moves.

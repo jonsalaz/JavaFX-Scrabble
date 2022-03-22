@@ -14,16 +14,23 @@ public class Solver {
     //TODO: Consider transposing board when doing down plays instead of trying to track whether moving down or across.
     // This is how nextSquare is currently calculated.
     public void solve() {
-        // TODO: Calculate AnchorSquares
-        //TODO: Check for moves one row at a time.
         //TODO: Repeat checking for moves once the board has been transposed (dont forget to transpose again
-        // to restore it's initial state.
-//        To generate all moves from Anchorsquare, assuming
-//        that there are k non-anchor squares to the left of it, we
-//        call
-//        Leftpart("", root of dawg, k)
-
+        // to restore it's initial state).
         ArrayList<Square> anchorSquares = board.getAnchors();
+        int limit = 0;
+
+        //First time checking for possible moves with a non transposed board.
+        //One row at a time, calculate all possible moves for each AnchorSquare in that row.
+        for(int r = 0; r < board.getRowLength(); r++) {
+            for (int c = 0; c < board.getColumnLength(); c++) {
+                if(anchorSquares.contains(board.getSquare(r, c))) {
+                    leftPart("", trie.getRoot(), limit, board.getSquare(r, c));
+                    limit = 0;
+                    continue;
+                }
+                limit += 1;
+            }
+        }
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){

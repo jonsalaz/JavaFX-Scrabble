@@ -40,7 +40,7 @@ public class Trie {
         TrieNode nextNode = ROOT;
 
         for(int level = 0; level < length; level++) {
-            int index = word.charAt(level) - 'a';
+            int index = Character.toLowerCase(word.charAt(level)) - 'a';
             if(nextNode.getChildren()[index] == null) {
                 return false;
             }

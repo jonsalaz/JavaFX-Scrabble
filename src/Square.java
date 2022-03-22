@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Square {
     private int row;
@@ -39,9 +40,21 @@ public class Square {
         return placedLetter;
     }
 
-    public ArrayList<Character> getCrossCheck() {
-        ArrayList<Character> crossCheck = new ArrayList<>();
+    public Boolean[] getCrossCheck(Board board) {
+        Boolean[] crossCheck = new Boolean[26];
         //TODO: Determine CrossChecks either in function or precompute for each row as necessary.
+
+        if(board.getSquare(row-1, column).getPlacedLetter() == null
+                && board.getSquare(row+1, column).getPlacedLetter() == null) {
+            Arrays.fill(crossCheck, true);
+            return crossCheck;
+        }
+        else if(board.getSquare(row-1,column).getPlacedLetter() != null) {
+            //TODO: Accoutn for crosschecks when the above is not empty.
+        }
+        else if(board.getSquare(row+1, column).getPlacedLetter() != null) {
+            //TODO: Account for crosschecks when the below is not empty.
+        }
         return crossCheck;
     }
 

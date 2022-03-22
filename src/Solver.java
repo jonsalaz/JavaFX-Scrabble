@@ -49,7 +49,6 @@ public class Solver {
 
         //Put board back in original state.
         board.transpose();
-
         //TODO: Play the move (taking into account whether or not the move is played across of down).
     }
 
@@ -77,10 +76,18 @@ public class Solver {
                         && (tray.contains((char) (i+97)))
                         && square.getCrossCheck(board, trie)[i]) {
                     Tile l = tray.get((char) (i+97));
+                    tray.remove(l);
                     TrieNode newN = N.getChildren()[i];
-                    Square nextSquare = board.getSquare(square.getRow(), square.getColumn() + 1);
-
-                    extendRight(partialWord + l.getLetter(), newN, nextSquare);
+                    Square nextSquare;
+                    try {
+                        nextSquare = board.getSquare(square.getRow(), square.getColumn() + 1);
+                        extendRight(partialWord + l.getLetter(), newN, nextSquare);
+                        tray.add(l);
+                    } catch(IndexOutOfBoundsException e) {
+                        if(newN.isTerminal()) {
+                            legalMove(partialWord+l.getLetter(), square.getRow(), square.getColumn()+1);
+                        }
+                    }
                 }
             }
         }
@@ -100,7 +107,7 @@ public class Solver {
         int wordMult = 1;
         int counter = 0;
 
-        for (int i = move.length()-1; i >= 0; i++) {
+        for (int i = move.length()-1; i >= 0; i--) {
             wordMult *= board.getSquare(row, column-i).getWordMultiplier();
             tempScore += Tile.getScore(move.charAt(counter)) * board.getSquare(row,
                                                                         column-i).getLetterMultiplier();
@@ -108,12 +115,16 @@ public class Solver {
         }
 
         tempScore *= wordMult;
+
+        System.out.println("Current best: "+moveWord);
+        System.out.println("Current best score: "+moveScore);
+        System.out.println("Possible move: " +move);
+        System.out.println("Possible score: "+tempScore);
         if(tempScore > moveScore) {
             moveScore = tempScore;
             moveRow = row;
             moveCol = column - move.length();
             moveWord = move;
         }
-        System.out.println("There is a legal move:" + moveWord);
     }
 }

@@ -45,7 +45,7 @@ public class Solver {
             for(int i = 0; i < N.getChildren().length; i++) {
                 if((N.getChildren()[i] != null)
                         && (tray.contains((char) (i+97)))
-                        && square.getCrossCheck(board)[i]) {
+                        && square.getCrossCheck(board, trie)[i]) {
                     Tile l = tray.get((char) (i+97));
                     TrieNode newN = N.getChildren()[i];
                     Square nextSquare = board.getSquare(square.getRow(), square.getColumn() + 1);

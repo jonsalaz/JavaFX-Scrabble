@@ -1,5 +1,3 @@
-import java.util.Map;
-
 public class Solver {
     private Board board;
     private Tray tray;
@@ -14,15 +12,16 @@ public class Solver {
     //TODO: Consider transposing board when doing down plays instead of trying to track whether moving down or across.
     // This is how nextSquare is currently calculated.
     public void solve() {
-        // TODO: solve
+        // TODO: Calculate AnchorSquares
+        //TODO: Check for moves one row at a time.
+        //TODO: Repeat checking for moves once the board has been transposed (dont forget to transpose again
+        // to restore it's initial state.
 //        To generate all moves from Anchorsquare, assuming
 //        that there are k non-anchor squares to the left of it, we
 //        call
 //        Leftpart("", root of dawg, k)
     }
 
-    //TODO: Consider passing in the index of the anchor square rather than the actual square, then accessing the square
-    // once inside the function so that you can more easily navigate to the square to the right.
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){
         extendRight(partialWord, N, anchorSquare);
         if(limit > 0) {
@@ -66,6 +65,6 @@ public class Solver {
     }
 
     private void legalMove(String move) {
-        //TODO: Track the highest-scoring move and discard the rest.
+        //TODO: Track the highest-scoring move.
     }
 }

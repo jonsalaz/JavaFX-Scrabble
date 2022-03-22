@@ -50,4 +50,8 @@ public class Trie {
         }
         return nextNode.isTerminal();
     }
+
+    private TrieNode getRoot() {
+        return ROOT;
+    }
 }

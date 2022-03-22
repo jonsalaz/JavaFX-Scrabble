@@ -56,4 +56,12 @@ public class Board {
         }
         return anchors;
     }
+
+    public int getRowLength() {
+        return board.length;
+    }
+
+    public int getColumnLength() {
+        return board[0].length;
+    }
 }

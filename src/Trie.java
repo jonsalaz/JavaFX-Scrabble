@@ -51,7 +51,7 @@ public class Trie {
         return nextNode.isTerminal();
     }
 
-    private TrieNode getRoot() {
+    public TrieNode getRoot() {
         return ROOT;
     }
 }

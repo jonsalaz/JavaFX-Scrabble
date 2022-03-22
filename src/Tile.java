@@ -16,6 +16,10 @@ public class Tile {
         return letter;
     }
 
+    public static int getScore(char c) {
+        return points.get(c);
+    }
+
     @Override
     public String toString() {
         return Character.toString(letter);

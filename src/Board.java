@@ -64,4 +64,14 @@ public class Board {
     public int getColumnLength() {
         return board[0].length;
     }
+
+    public void transpose() {
+        Square[][] temp = new Square[board.length][board[0].length];
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[r].length; c++) {
+                temp[r][c] = board[c][r];
+            }
+        }
+        board = temp;
+    }
 }

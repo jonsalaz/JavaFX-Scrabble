@@ -28,6 +28,8 @@ public class Solver {
             }
         }
 
+        board.transpose();
+
         //TODO: Repeat checking for moves once the board has been transposed (dont forget to transpose again
         // to restore it's initial state).
     }

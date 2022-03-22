@@ -48,8 +48,6 @@ public class Board {
                         board[r+1][c].getPlacedLetter() != null ||
                         board[r][c-1].getPlacedLetter() != null ||
                         board[r][c+1].getPlacedLetter() != null) {
-                    //TODO: Consider implementing as a map that maps the row to an array of column values indicating
-                    // which columns have an anchor point within a given row.
                     anchors.add(board[r][c]);
                 }
             }

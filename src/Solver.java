@@ -29,9 +29,21 @@ public class Solver {
         }
 
         board.transpose();
+        limit = 0;
+        //Second time checking for possible moves with a transposed board.
+        for(int r = 0; r < board.getRowLength(); r++) {
+            for (int c = 0; c < board.getColumnLength(); c++) {
+                if(anchorSquares.contains(board.getSquare(r, c))) {
+                    leftPart("", trie.getRoot(), limit, board.getSquare(r, c));
+                    limit = 0;
+                    continue;
+                }
+                limit += 1;
+            }
+        }
 
-        //TODO: Repeat checking for moves once the board has been transposed (dont forget to transpose again
-        // to restore it's initial state).
+        //Put board back in original state.
+        board.transpose();
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){

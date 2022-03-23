@@ -1,10 +1,10 @@
 public class TrieNode {
-    private static final int ALPHABET_SIZE = 26;
     private TrieNode[] children;
     private boolean terminal;
 
     public TrieNode() {
         terminal = false;
+        int ALPHABET_SIZE = 26;
         children = new TrieNode[ALPHABET_SIZE];
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             children[i] = null;

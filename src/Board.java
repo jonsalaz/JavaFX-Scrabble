@@ -115,7 +115,6 @@ public class Board {
         }
 
         //Play move across.
-        //TODO: fix errors.
         Square placement = board[moveRow][moveCol];
         for(int i = 0; i < moveWord.length(); i++) {
             if(placement.getPlacedLetter() != null) {

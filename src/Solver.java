@@ -153,7 +153,6 @@ public class Solver {
     }
 
     private void legalMove(String move, int row, int column) {
-        //TODO: Fix score counting.
         //TODO: Consider moving code to a separate function for score keeping.
         int tempScore = 0;
         int wordMult = 1;
@@ -194,7 +193,6 @@ public class Solver {
                 counter++;
             }
         }
-        //TODO: Check if indexing is right here.
         //If the row is the bottom row of the board. Only check for up words.
         else if(row == board.getRowLength()-1) {
             counter = 0;

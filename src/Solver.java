@@ -84,7 +84,12 @@ public class Solver {
             }
         }
         board.transpose();
-        //TODO: Play the move (taking into account whether or not the move is played across of down).
+        //     private int moveRow;
+        //    private int moveCol;
+        //    private String moveWord;
+        //    private int moveScore;
+        //    private boolean transpose;
+        board.playMove(moveWord, tray, moveScore, moveRow, moveCol, transpose);
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){

@@ -91,7 +91,7 @@ public class Solver {
         extendRight(partialWord, N, anchorSquare);
         if(limit > 0) {
             for(int i = 0; i < N.getChildren().length; i++) {
-                if ((N.getChildren()[i] != null) && tray.contains((char) (i+97))) {
+                if ((N.getChildren()[i] != null) && tray.contains((char) (i+97))){
                     Tile l = tray.get((char) (i+97));
                     tray.remove(l);
                     TrieNode newN = N.getChildren()[i];
@@ -107,7 +107,6 @@ public class Solver {
             if(N.isTerminal()) {
                 legalMove(partialWord, square.getRow(), square.getColumn());
             }
-
             for(int i = 0; i < N.getChildren().length; i++) {
                 if((N.getChildren()[i] != null)
                         && (tray.contains((char) (i+97)))
@@ -121,9 +120,9 @@ public class Solver {
                     } catch(IndexOutOfBoundsException e) {
                         if(newN.isTerminal()) {
                             legalMove(partialWord+l.getLetter(), square.getRow(), square.getColumn()+1);
-                            tray.add(l);
                         }
-                        break;
+                        tray.add(l);
+                        continue;
                     }
                     extendRight(partialWord + l.getLetter(), newN, nextSquare);
                     tray.add(l);
@@ -148,31 +147,31 @@ public class Solver {
     }
 
     private void legalMove(String move, int row, int column) {
+        //TODO: Fix score counting.
         int tempScore = 0;
         int wordMult = 1;
         int counter = 0;
 
-        for (int i = move.length()-1; i >= 0; i--) {
+        for (int i = move.length(); i > 0; i--) {
             try {
                 wordMult *= board.getSquare(row, column - i).getWordMultiplier();
                 tempScore += Tile.getScore(move.charAt(counter)) * board.getSquare(row,
                         column-i).getLetterMultiplier();
             } catch(Exception e) {
-                return;
             }
             counter++;
         }
         tempScore *= wordMult;
 
-        System.out.println("PLAYABLE MOVE?:");
-        System.out.println("ROW: " + row);
-        System.out.println("COLUMN: " + column);
-        System.out.println(move);
         if(tempScore > moveScore) {
             moveScore = tempScore;
             moveRow = row;
             moveCol = column - move.length();
             moveWord = move;
+
+            //TODO: Remove debugging.
+            System.out.println("HIGH SCORE: " + moveScore);
+            System.out.println("HIGH WORD: " + moveWord);
         }
     }
 }

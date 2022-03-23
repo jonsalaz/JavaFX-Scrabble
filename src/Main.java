@@ -32,7 +32,7 @@ public class Main {
         // Trie Creation
         while(true) {
             try {
-                trie = new Trie("testing/twl06.txt");
+                trie = new Trie("testing/sowpods.txt");
                 break;
             } catch (FileNotFoundException e) {
                 System.out.println("Dictionary config file not found");

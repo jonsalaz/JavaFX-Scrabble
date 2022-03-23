@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class Board {
     private Square[][] board;
-    private boolean tranpose;
+    private boolean transpose;
 
     public Board(int dim, String[] rows) {
         board = new Square[dim][dim];
-        this.tranpose = false;
+        this.transpose = false;
 
         for(int r = 0; r < dim; r++) {
             String[] places = rows[r].split(" ");
@@ -96,14 +96,42 @@ public class Board {
         }
         board = temp;
         //Switch tranpose tracker
-        if(this.tranpose) {
-            this.tranpose = false;
+        if(this.transpose) {
+            this.transpose = false;
         } else {
-            this.tranpose = true;
+            this.transpose = true;
         }
     }
 
     public boolean isTranpose() {
-        return this.tranpose;
+        return this.transpose;
+    }
+
+    public void playMove(String moveWord, Tray tray, int moveScore, int moveRow, int moveCol, boolean transpose) {
+        boolean flipped = false;
+        if(transpose) {
+            this.transpose();
+            flipped = true;
+        }
+
+        //Play move across.
+        Square placement = board[moveRow][moveCol];
+        for(int i = 0; i < moveWord.length(); i++) {
+            if(placement.getPlacedLetter() != null) {
+                //If letter is already on board.
+                placement = board[placement.getRow()][placement.getColumn()+1];
+            }
+            else if(tray.contains(moveWord.charAt(i))) {
+                //If tray does not contain a placed letter.
+                Tile tile = tray.get(moveWord.charAt(i));
+                tray.remove(tile);
+                placement.setPlacedLetter(tile);
+            } else {
+                System.out.println("Invalid move");
+            }
+        }
+        if(flipped) {
+            this.transpose();
+        }
     }
 }

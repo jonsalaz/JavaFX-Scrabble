@@ -273,21 +273,12 @@ public class Solver {
             tempScore += 50;
         }
 
-        System.out.println("POTENTIAL WORD: " + move);
-        System.out.println("POTENTIAL SCORE: " + tempScore);
-
         if(tempScore > moveScore) {
             moveScore = tempScore;
             moveRow = row;
             moveCol = column - move.length();
             moveWord = move;
             transpose = board.isTranpose();
-
-            //TODO: Remove debugging.
-            System.out.println("HIGH SCORE: " + moveScore);
-            System.out.println("HIGH WORD: " + moveWord);
-            System.out.println("WORD ROW: " + row);
-            System.out.println("WORD COL: " + column);
         }
     }
 }

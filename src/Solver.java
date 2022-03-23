@@ -83,12 +83,15 @@ public class Solver {
             }
         }
         System.out.println(board);
+        System.out.println(moveRow);
+        System.out.println(moveCol);
+        System.out.println(moveWord);
         board.transpose();
         //TODO: Play the move (taking into account whether or not the move is played across of down).
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){
-        extendRight(partialWord, N, anchorSquare);
+        extendRight(partialWord, N, anchorSquare, 0);
         if(limit > 0) {
             for(int i = 0; i < N.getChildren().length; i++) {
                 if ((N.getChildren()[i] != null) && tray.contains((char) (i+97))){
@@ -102,9 +105,9 @@ public class Solver {
         }
     }
 
-    private void extendRight(String partialWord, TrieNode N, Square square){
+    private void extendRight(String partialWord, TrieNode N, Square square, int depth){
         if(square.getPlacedLetter() == null) {
-            if(N.isTerminal()) {
+            if(N.isTerminal() && depth != 0) {
                 legalMove(partialWord, square.getRow(), square.getColumn());
             }
             for(int i = 0; i < N.getChildren().length; i++) {
@@ -124,7 +127,7 @@ public class Solver {
                         tray.add(l);
                         continue;
                     }
-                    extendRight(partialWord + l.getLetter(), newN, nextSquare);
+                    extendRight(partialWord + l.getLetter(), newN, nextSquare, depth + 1);
                     tray.add(l);
                 }
             }
@@ -141,7 +144,8 @@ public class Solver {
                     }
                     return;
                 }
-                extendRight(partialWord + l.getLetter(), N.getChildren()[l.getLetter()-97], nextSquare);
+                extendRight(partialWord + l.getLetter(),
+                        N.getChildren()[l.getLetter()-97], nextSquare, depth + 1);
             }
         }
     }
@@ -172,6 +176,8 @@ public class Solver {
             //TODO: Remove debugging.
             System.out.println("HIGH SCORE: " + moveScore);
             System.out.println("HIGH WORD: " + moveWord);
+            System.out.println("WORD ROW: " + row);
+            System.out.println("WORD COL: " + column);
         }
     }
 }

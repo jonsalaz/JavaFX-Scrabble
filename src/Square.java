@@ -179,4 +179,8 @@ public class Square {
         this.row = this.column;
         this.column = temp;
     }
+
+    public void setPlacedLetter(Tile tile) {
+        this.placedLetter = tile;
+    }
 }

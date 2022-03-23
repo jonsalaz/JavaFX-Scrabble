@@ -47,4 +47,13 @@ public class Tray {
 
         return temp.toString();
     }
+
+    public boolean isBingo() {
+        if (tray.isEmpty()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

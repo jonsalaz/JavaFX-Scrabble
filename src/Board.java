@@ -38,32 +38,35 @@ public class Board {
     }
 
     public ArrayList<Square> getAnchors() {
-
         ArrayList<Square> anchors = new ArrayList<>();
-        for(int c = 0; c < board.length; c++) {
-            for(int r = 0; r < board[c].length; r++) {
+        for(int r = 0; r < board.length; r++) {
+            for(int c = 0; c < board[r].length; c++) {
                 if(board[r][c].getPlacedLetter() == null) {
                     try{
                         if(board[r-1][c].getPlacedLetter() != null) {
                             anchors.add(board[r][c]);
+                            continue;
                         }
                     }catch (Exception e) {
                     }
                     try{
                         if(board[r+1][c].getPlacedLetter() != null) {
                             anchors.add(board[r][c]);
+                            continue;
                         }
                     }catch (Exception e) {
                     }
                     try{
                         if(board[r][c-1].getPlacedLetter() != null) {
                             anchors.add(board[r][c]);
+                            continue;
                         }
                     }catch (Exception e) {
                     }
                     try{
                         if(board[r][c+1].getPlacedLetter() != null) {
                             anchors.add(board[r][c]);
+                            continue;
                         }
                     }catch (Exception e) {
                     }
@@ -85,6 +88,7 @@ public class Board {
         Square[][] temp = new Square[board.length][board[0].length];
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
+                board[c][r].transpose();
                 temp[r][c] = board[c][r];
             }
         }

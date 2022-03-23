@@ -6,6 +6,7 @@ public class Board {
 
     public Board(int dim, String[] rows) {
         board = new Square[dim][dim];
+        this.tranpose = false;
 
         for(int r = 0; r < dim; r++) {
             String[] places = rows[r].split(" ");

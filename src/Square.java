@@ -49,7 +49,7 @@ public class Square {
 
     public Boolean[] getCrossCheck(Board board, Trie trie) {
         Boolean[] crossCheck = new Boolean[26];
-        //If the above and below squares are emtpy all characters are valid moves.
+        //If the above and below squares are empty all characters are valid moves.
         Arrays.fill(crossCheck, true);
         //It is necessary to check both above and below in case the square is "sandwiched" between two already complete
         //words.
@@ -57,8 +57,8 @@ public class Square {
         //If the below tile is not null, must search the binary tree for letters that work with the current tile
         //as our leading character of the word.
         if(row != board.getRowLength()-1) {
-            if (board.getSquare(row + 1, column).getPlacedLetter() != null) {
-                Square temp = board.getSquare(row + 1, column);
+            Square temp = board.getSquare(row + 1, column);
+            if (temp.getPlacedLetter() != null) {
                 StringBuilder word = new StringBuilder();
                 while (temp.getPlacedLetter() != null) {
                     word.append(temp.getPlacedLetter());
@@ -72,7 +72,7 @@ public class Square {
 
                 for (int i = 0; i < 26; i++) {
                     String key = ((char) (i + 'a')) + finalWord;
-                    crossCheck[i] = trie.search(key);
+                    crossCheck[i] = trie.search(key.toLowerCase());
                 }
             }
         }
@@ -84,12 +84,56 @@ public class Square {
                 StringBuilder word = new StringBuilder();
                 while (temp.getPlacedLetter() != null) {
                     word.insert(0, temp.getPlacedLetter());
-                    temp = board.getSquare(temp.getRow() - 1, column);
+                    try {
+                        temp = board.getSquare(temp.getRow() - 1, column);
+                    } catch (IndexOutOfBoundsException e) {
+                        break;
+                    }
                 }
                 String finalWord = word.toString();
                 for (int i = 0; i < 26; i++) {
                     String key = finalWord + ((char) (i + 'a'));
-                    crossCheck[i] = trie.search(key);
+                    crossCheck[i] = trie.search(key.toLowerCase());
+                }
+            }
+        }
+
+        if(column != 0) {
+            if(board.getSquare(row, column - 1).getPlacedLetter() != null) {
+                Square temp = board.getSquare(row, column-1);
+                StringBuilder word = new StringBuilder();
+                while(temp.getPlacedLetter() != null) {
+                    word.insert(0, temp.getPlacedLetter());
+                    try {
+                        temp = board.getSquare(temp.getRow(), temp.getColumn() - 1);
+                    } catch (IndexOutOfBoundsException e) {
+                        break;
+                    }
+                }
+                String finalWord = word.toString();
+                for (int i = 0; i < 26; i++) {
+                    String key = finalWord + ((char) (i + 'a'));
+                    crossCheck[i] = trie.search(key.toLowerCase());
+                }
+            }
+        }
+
+        if(column != board.getColumnLength()-1) {
+            if(board.getSquare(row, column + 1).getPlacedLetter() != null) {
+                Square temp = board.getSquare(row, column + 1);
+                StringBuilder word = new StringBuilder();
+                while(temp.getPlacedLetter() != null) {
+                    word.append(temp.getPlacedLetter());
+                    try {
+                        temp = board.getSquare(temp.getRow(), temp.getColumn() + 1);
+                    } catch (IndexOutOfBoundsException e) {
+                        break;
+                    }
+                }
+                String finalWord = word.toString();
+                for (int i = 0; i < 26; i++) {
+                    String key = finalWord + ((char) (i + 'a'));
+                    crossCheck[i] = trie.search(key.toLowerCase());
                 }
             }
         }
@@ -128,5 +172,11 @@ public class Square {
 
     public int getRow() {
         return row;
+    }
+
+    public void transpose() {
+        int temp = this.row;
+        this.row = this.column;
+        this.column = temp;
     }
 }

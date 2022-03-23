@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Board {
     private Square[][] board;
+    private boolean tranpose;
 
     public Board(int dim, String[] rows) {
         board = new Square[dim][dim];
@@ -93,5 +94,15 @@ public class Board {
             }
         }
         board = temp;
+        //Switch tranpose tracker
+        if(this.tranpose) {
+            this.tranpose = false;
+        } else {
+            this.tranpose = true;
+        }
+    }
+
+    public boolean isTranpose() {
+        return this.tranpose;
     }
 }

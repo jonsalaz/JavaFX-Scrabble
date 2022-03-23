@@ -9,6 +9,7 @@ public class Solver {
     private int moveCol;
     private String moveWord;
     private int moveScore;
+    private boolean transpose;
 
     public Solver(Board board, Tray tray, Trie trie) {
         this.board = board;
@@ -280,6 +281,7 @@ public class Solver {
             moveRow = row;
             moveCol = column - move.length();
             moveWord = move;
+            transpose = board.isTranpose();
 
             //TODO: Remove debugging.
             System.out.println("HIGH SCORE: " + moveScore);

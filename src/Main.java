@@ -42,7 +42,6 @@ public class Main {
         // User input for config file.
         Scanner scanner = new Scanner(System.in);
         while(true) {
-            System.out.println("Please enter your tray config files");
             try {
                 config = new File("testing/testConfig.txt");
                 fileScanner = new Scanner(config);

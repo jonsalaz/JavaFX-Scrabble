@@ -83,10 +83,6 @@ public class Solver {
                 limit += 1;
             }
         }
-        System.out.println(board);
-        System.out.println(moveRow);
-        System.out.println(moveCol);
-        System.out.println(moveWord);
         board.transpose();
         //TODO: Play the move (taking into account whether or not the move is played across of down).
     }

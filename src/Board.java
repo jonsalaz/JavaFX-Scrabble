@@ -115,6 +115,7 @@ public class Board {
         }
 
         //Play move across.
+        //TODO: fix errors.
         Square placement = board[moveRow][moveCol];
         for(int i = 0; i < moveWord.length(); i++) {
             if(placement.getPlacedLetter() != null) {
@@ -126,6 +127,9 @@ public class Board {
                 Tile tile = tray.get(moveWord.charAt(i));
                 tray.remove(tile);
                 placement.setPlacedLetter(tile);
+                if(i != moveWord.length() - 1) {
+                    placement = board[placement.getRow()][placement.getColumn() + 1];
+                }
             } else {
                 System.out.println("Invalid move");
             }

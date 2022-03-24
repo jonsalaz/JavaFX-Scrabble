@@ -79,7 +79,7 @@ public class Square {
             if(board.getSquare(row - 1, column) == null) {
                 Arrays.fill(crossCheck, true);
             } else {
-                for (int i = row - 1; i > 0; i--) {
+                for (int i = row - 1; i >= 0; i--) {
                     if (board.getSquare(i, column).getPlacedLetter() == null) {
                         break;
                     } else {
@@ -97,13 +97,13 @@ public class Square {
             }
         } else {
             if(board.getSquare(row-1, column).getPlacedLetter() == null
-                    && board.getSquare(row+1, column) == null) {
+                    && board.getSquare(row+1, column).getPlacedLetter() == null) {
                 Arrays.fill(crossCheck, true);
             } else {
                 StringBuilder firstHalf = new StringBuilder();
                 StringBuilder secondHalf = new StringBuilder();
                 //Build first half of word.
-                for (int i = row - 1; i > 0; i--) {
+                for (int i = row - 1; i >= 0; i--) {
                     if (board.getSquare(i, column).getPlacedLetter() == null) {
                         break;
                     } else {
@@ -122,7 +122,7 @@ public class Square {
                 for(int i = 0; i < 26; i++) {
                     char currentLetter = (char) (i+ 'a');
                     String searchWord = firstHalf.toString() + currentLetter + secondHalf.toString();
-
+                    searchWord = searchWord.toLowerCase();
                     if(crossCheck[i] == null || crossCheck[i]) {
                         crossCheck[i] = trie.search(searchWord);
                     }

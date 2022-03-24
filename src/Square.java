@@ -51,7 +51,7 @@ public class Square {
         Boolean[] crossCheck = new Boolean[26];
 
         if(this.row == 0) {
-            if(board.getSquare(row + 1, column) == null) {
+            if(board.getSquare(row + 1, column).getPlacedLetter() == null) {
                 Arrays.fill(crossCheck, true);
             } else {
                 //Build string out of already placed letters below the current square.
@@ -76,7 +76,7 @@ public class Square {
         } else if(this.row == board.getRowLength()-1) {
             //Build word out previously placed letters from above.
             StringBuilder alreadyPlaced = new StringBuilder();
-            if(board.getSquare(row - 1, column) == null) {
+            if(board.getSquare(row - 1, column).getPlacedLetter() == null) {
                 Arrays.fill(crossCheck, true);
             } else {
                 for (int i = row - 1; i >= 0; i--) {

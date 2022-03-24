@@ -1,7 +1,6 @@
 package terminalApplication;
 import gameplay.*;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.InputMismatchException;
@@ -15,7 +14,7 @@ public class Main {
         // Freq List
         try{
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            InputStream is = classLoader.getResourceAsStream("resources/scrabble_tiles.txt");
+            InputStream is = classLoader.getResourceAsStream("scrabble_tiles.txt");
             Scanner freqScanner = new Scanner(is);
             while(freqScanner.hasNextLine()){
                 String line;

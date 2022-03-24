@@ -16,14 +16,27 @@ public class Tray {
             if (tile.getLetter() == c) {
                 return true;
             }
+            //TODO: Check if contains works with wild card.
+            else if(tile.getLetter() == '*') {
+                return true;
+            }
         }
+
         return false;
     }
 
     public Tile get(char c) {
+        //TODO: Check if get function works with wild cards.
+        //First check if the tray contains a tile with the letter.
         for (Tile tile:
                 tray) {
             if (tile.getLetter() == c) {
+                return tile;
+            }
+        }
+        //If the tray does not contain the exact letter but does contain a wild card. Use the wild card.
+        for (Tile tile: tray) {
+            if(tile.getLetter() == '*') {
                 return tile;
             }
         }

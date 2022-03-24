@@ -11,44 +11,41 @@ public class Main {
         // Trie needed for word checking.
         Trie trie;
 
-
         // Freq List
         try{
-            File file = new File("testing/freqLetter.txt");
+            File file = new File("resources/scrabble_tiles.txt");
             Scanner freqScanner = new Scanner(file);
             while(freqScanner.hasNextLine()){
-                char c;
-                int p;
                 String line;
 
                 line = freqScanner.nextLine();
-                Tile.addKey(line.charAt(0), Integer.parseInt(line.substring(2)));
+                Tile.addKey(line.charAt(0), Integer.parseInt(line.substring(2, 3)));
             }
         }
         catch(Exception e){
             e.printStackTrace();
+            System.exit(1);
+            return;
         }
 
         // Trie Creation
-        while(true) {
-            try {
-                trie = new Trie("testing/sowpods.txt");
-                break;
-            } catch (FileNotFoundException e) {
-                System.out.println("Dictionary config file not found");
-            }
+        try {
+            trie = new Trie(args[1]);
+        } catch (FileNotFoundException e) {
+            System.out.println("Dictionary config file not found");
+            System.exit(1);
+            return;
         }
 
         // User input for config file.
         Scanner scanner = new Scanner(System.in);
-        while(true) {
-            try {
-                config = new File("testing/testConfig.txt");
-                fileScanner = new Scanner(config);
-                break;
-            } catch (Exception e) {
-                System.out.println("File not found");
-            }
+        try {
+            config = new File(scanner.next());
+            fileScanner = new Scanner(config);
+        } catch (Exception e) {
+            System.out.println("Config File not found.");
+            System.exit(1);
+            return;
         }
 
         // Perform solving for every game state given in config file.
@@ -63,7 +60,8 @@ public class Main {
                 dim = fileScanner.nextInt();
             }
             catch(InputMismatchException e) {
-                System.out.println(fileScanner.next());
+                e.printStackTrace();
+                System.exit(1);
                 return;
             }
 

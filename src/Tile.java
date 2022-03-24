@@ -17,7 +17,7 @@ public class Tile {
     }
 
     public static int getScore(char c) {
-        return points.get(c);
+        return points.get(Character.toLowerCase(c));
     }
 
     @Override

@@ -57,7 +57,7 @@ public class Solver {
         }
 
         board.transpose();
-        System.out.println(board);
+
         for(int r = 0; r < board.getRowLength(); r++) {
             limit = 0;
             for (int c = 0; c < board.getColumnLength(); c++) {
@@ -90,13 +90,10 @@ public class Solver {
                 limit += 1;
             }
         }
+        System.out.println(board);
         board.transpose();
         System.out.println("Solution " + moveWord + " has " + moveScore + " points");
         System.out.println("The board was transposed?: " + transpose);
-
-        System.out.println(moveRow);
-        System.out.println(moveCol);
-
         board.playMove(moveWord, tray, moveScore, moveRow, moveCol, transpose);
     }
 
@@ -161,7 +158,6 @@ public class Solver {
     }
 
     private void legalMove(String move, int row, int column) {
-        //TODO: Consider moving code to a separate function for score keeping.
         int tempScore = 0;
         int wordMult = 1;
         int counter = 0;

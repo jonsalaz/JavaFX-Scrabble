@@ -9,7 +9,7 @@ public class Tile {
     }
 
     public static void addKey(char c, int p) {
-        points.put(c, p);
+        points.put(Character.toLowerCase(c), p);
     }
 
     public char getLetter() {

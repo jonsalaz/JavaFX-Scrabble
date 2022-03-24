@@ -28,76 +28,84 @@ public class Solver {
             for (int c = 0; c < board.getColumnLength(); c++) {
                 if(anchorSquares.contains(board.getSquare(r, c))) {
                     if(limit > 0 && board.getSquare(r, c - 1).getPlacedLetter() != null) {
-                        Square temp = board.getSquare(r, c);
-                        StringBuilder partialWordBuilder = new StringBuilder();
-                        while(limit > 0) {
-                            temp = board.getSquare(r, temp.getColumn()-1);
-                            partialWordBuilder.insert(0, temp.getPlacedLetter().getLetter());
-                            limit--;
+                        StringBuilder firstPart = new StringBuilder();
+                        for(int i = c-1; i >= 0; i--) {
+                            if(board.getSquare(r, i).getPlacedLetter() == null) {
+                                limit = 0;
+                                break;
+                            } else {
+                                firstPart.insert(0, board.getSquare(r, i).getPlacedLetter());
+                                limit--;
+                            }
                         }
-                        String partialWord = partialWordBuilder.toString().toLowerCase();
+                        //Find the new starting node for the word checking in leftPart().
                         TrieNode start = trie.getRoot();
-                        for(int i = 0; i < partialWordBuilder.length(); i++) {
-                            start = start.getChildren()[partialWord.charAt(i)-97];
+                        for(int i = 0; i < firstPart.length(); i++) {
+                            start = start.getChildren()[Character.toLowerCase(firstPart.charAt(i))-'a'];
                         }
-
-                        leftPart(partialWord, start, limit, board.getSquare(r, c));
+                        //Call leftPart on the partially started word.
+                        leftPart(firstPart.toString(), start, limit, board.getSquare(r, c));
                     }
                     else {
                         leftPart("", trie.getRoot(), limit, board.getSquare(r, c));
-                        limit = 0;
-                        continue;
                     }
+                    limit = 0;
+                    continue;
                 }
                 limit += 1;
             }
         }
 
         board.transpose();
+        System.out.println(board);
         for(int r = 0; r < board.getRowLength(); r++) {
             limit = 0;
             for (int c = 0; c < board.getColumnLength(); c++) {
                 if(anchorSquares.contains(board.getSquare(r, c))) {
                     if(limit > 0 && board.getSquare(r, c - 1).getPlacedLetter() != null) {
-                        Square temp = board.getSquare(r, c);
-                        StringBuilder partialWordBuilder = new StringBuilder();
-                        while(limit > 0) {
-                            temp = board.getSquare(r, temp.getColumn()-1);
-                            partialWordBuilder.insert(0, temp.getPlacedLetter().getLetter());
-                            limit--;
+                        StringBuilder firstPart = new StringBuilder();
+                        for(int i = c-1; i >= 0; i--) {
+                            if(board.getSquare(r, i).getPlacedLetter() == null) {
+                                limit = 0;
+                                break;
+                            } else {
+                                firstPart.insert(0, board.getSquare(r, i).getPlacedLetter());
+                                limit--;
+                            }
                         }
-                        String partialWord = partialWordBuilder.toString().toLowerCase();
+                        //Find the new starting node for the word checking in leftPart().
                         TrieNode start = trie.getRoot();
-                        for(int i = 0; i < partialWordBuilder.length(); i++) {
-                            start = start.getChildren()[partialWord.charAt(i)-97];
+                        for(int i = 0; i < firstPart.length(); i++) {
+                            start = start.getChildren()[Character.toLowerCase(firstPart.charAt(i))-'a'];
                         }
-
-                        leftPart(partialWord, start, limit, board.getSquare(r, c));
+                        //Call leftPart on the partially started word.
+                        leftPart(firstPart.toString(), start, limit, board.getSquare(r, c));
                     }
                     else {
                         leftPart("", trie.getRoot(), limit, board.getSquare(r, c));
-                        limit = 0;
-                        continue;
                     }
+                    limit = 0;
+                    continue;
                 }
                 limit += 1;
             }
         }
         board.transpose();
-        //     private int moveRow;
-        //    private int moveCol;
-        //    private String moveWord;
-        //    private int moveScore;
-        //    private boolean transpose;
+        System.out.println("Solution " + moveWord + " has " + moveScore + " points");
+        System.out.println("The board was transposed?: " + transpose);
+
+        System.out.println(moveRow);
+        System.out.println(moveCol);
+
         board.playMove(moveWord, tray, moveScore, moveRow, moveCol, transpose);
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){
         extendRight(partialWord, N, anchorSquare, 0);
         if(limit > 0) {
-            for(int i = 0; i < N.getChildren().length; i++) {
-                if ((N.getChildren()[i] != null) && tray.contains((char) (i+97))){
-                    Tile l = tray.get((char) (i+97));
+            for(int i = 0; i < 26; i++) {
+                if ((N.getChildren()[i] != null) && tray.contains((char) (i+'a'))){
+                    Tile l = tray.get((char) (i+'a'));
                     tray.remove(l);
                     TrieNode newN = N.getChildren()[i];
                     leftPart(partialWord + Character.toLowerCase(l.getLetter()), newN, limit - 1, anchorSquare);
@@ -112,11 +120,11 @@ public class Solver {
             if(N.isTerminal() && depth != 0) {
                 legalMove(partialWord, square.getRow(), square.getColumn());
             }
-            for(int i = 0; i < N.getChildren().length; i++) {
+            for(int i = 0; i < 26; i++) {
                 if((N.getChildren()[i] != null)
-                        && (tray.contains((char) (i+97)))
+                        && (tray.contains((char) (i+'a')))
                         && square.getCrossCheck(board, trie)[i]) {
-                    Tile l = tray.get((char) (i+97));
+                    Tile l = tray.get((char) (i+'a'));
                     tray.remove(l);
                     TrieNode newN = N.getChildren()[i];
                     Square nextSquare;
@@ -136,18 +144,18 @@ public class Solver {
         }
         else {
             Tile l = square.getPlacedLetter();
-            if(N.getChildren()[l.getLetter()-97] != null) {
+            if(N.getChildren()[l.getLetter()-'a'] != null) {
                 Square nextSquare;
                 try {
                     nextSquare = board.getSquare(square.getRow(), square.getColumn() + 1);
                 } catch(IndexOutOfBoundsException e) {
-                    if(N.isTerminal()) {
-                        legalMove(partialWord, square.getRow(), square.getColumn());
+                    if(N.getChildren()[l.getLetter()-'a'].isTerminal()) {
+                        legalMove(partialWord + l.getLetter(), square.getRow(), square.getColumn()+1);
                     }
                     return;
                 }
                 extendRight(partialWord + l.getLetter(),
-                        N.getChildren()[l.getLetter()-97], nextSquare, depth + 1);
+                        N.getChildren()[l.getLetter()-'a'], nextSquare, depth + 1);
             }
         }
     }
@@ -281,5 +289,3 @@ public class Solver {
         }
     }
 }
-
-//TODO: Check crosschecks to see if they are accounting for when a letter is sandwhiched between two preplaced moves.

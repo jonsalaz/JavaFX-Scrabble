@@ -36,6 +36,7 @@ public class Trie {
     }
 
     public Boolean search(String word) {
+        word = word.toLowerCase();
         int length = word.length();
         TrieNode nextNode = ROOT;
 

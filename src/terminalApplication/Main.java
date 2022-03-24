@@ -3,21 +3,20 @@ import gameplay.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Necessary objects for game state parsing.
-        Scanner fileScanner;
-        File config;
         // gameplay.Trie needed for word checking.
         Trie trie;
 
         // Freq List
         try{
-            File file = new File("resources/scrabble_tiles.txt");
-            Scanner freqScanner = new Scanner(file);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream is = classLoader.getResourceAsStream("resources/scrabble_tiles.txt");
+            Scanner freqScanner = new Scanner(is);
             while(freqScanner.hasNextLine()){
                 String line;
 
@@ -33,24 +32,16 @@ public class Main {
 
         // gameplay.Trie Creation
         try {
-            trie = new Trie(args[1]);
+            trie = new Trie(args[0]);
         } catch (FileNotFoundException e) {
             System.out.println("Dictionary config file not found");
             System.exit(1);
             return;
         }
 
-        // User input for config file.
-        Scanner scanner = new Scanner(System.in);
-        try {
-            config = new File(scanner.next());
-            fileScanner = new Scanner(config);
-        } catch (Exception e) {
-            System.out.println("Config File not found.");
-            System.exit(1);
-            return;
-        }
 
+        // User input for config file.
+        Scanner fileScanner = new Scanner(System.in);
         // Perform solving for every game state given in config file.
         while(fileScanner.hasNextLine()) {
             // Necessary objects to run solver.

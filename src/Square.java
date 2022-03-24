@@ -15,7 +15,7 @@ public class Square {
             this.wm = Character.getNumericValue(wm);
         }
 
-        if(lm == '.') {
+        if(lm == '.' || lm == ' ') {
             this.lm = 1;
         }
         else {
@@ -49,91 +49,83 @@ public class Square {
 
     public Boolean[] getCrossCheck(Board board, Trie trie) {
         Boolean[] crossCheck = new Boolean[26];
-        //If the above and below squares are empty all characters are valid moves.
-        Arrays.fill(crossCheck, true);
-        //It is necessary to check both above and below in case the square is "sandwiched" between two already complete
-        //words.
 
-        //If the below tile is not null, must search the binary tree for letters that work with the current tile
-        //as our leading character of the word.
-        if(row != board.getRowLength()-1) {
-            Square temp = board.getSquare(row + 1, column);
-            if (temp.getPlacedLetter() != null) {
-                StringBuilder word = new StringBuilder();
-                while (temp.getPlacedLetter() != null) {
-                    word.append(temp.getPlacedLetter());
-                    try {
-                        temp = board.getSquare(temp.getRow() + 1, column);
-                    } catch (IndexOutOfBoundsException e) {
+        if(this.row == 0) {
+            if(board.getSquare(row + 1, column) == null) {
+                Arrays.fill(crossCheck, true);
+            } else {
+                //Build string out of already placed letters below the current square.
+                StringBuilder alreadyPlaced = new StringBuilder();
+                for (int i = row + 1; i < board.getRowLength(); i++) {
+                    if (board.getSquare(i, column).getPlacedLetter() == null) {
                         break;
+                    } else {
+                        alreadyPlaced.append(board.getSquare(i, column).getPlacedLetter().getLetter());
                     }
                 }
-                String finalWord = word.toString();
-
+                //Check every letter combination combined with the prexisting letters below the square to create a list of
+                // letters that can be placed on the current square.
                 for (int i = 0; i < 26; i++) {
-                    String key = ((char) (i + 'a')) + finalWord;
-                    crossCheck[i] = trie.search(key.toLowerCase());
+                    char currentLetter = (char) (i + 'a');
+                    if (crossCheck[i] == null || crossCheck[i]) {
+                        String searchWord = currentLetter + alreadyPlaced.toString();
+                        crossCheck[i] = trie.search(searchWord);
+                    }
                 }
             }
-        }
-        //If the above tile is not null, must search the binary tree for letters that work with the current tile as
-        //our tail character of the word.
-        if(row != 0) {
-            if (board.getSquare(row - 1, column).getPlacedLetter() != null) {
-                Square temp = board.getSquare(row - 1, column);
-                StringBuilder word = new StringBuilder();
-                while (temp.getPlacedLetter() != null) {
-                    word.insert(0, temp.getPlacedLetter());
-                    try {
-                        temp = board.getSquare(temp.getRow() - 1, column);
-                    } catch (IndexOutOfBoundsException e) {
+        } else if(this.row == board.getRowLength()-1) {
+            //Build word out previously placed letters from above.
+            StringBuilder alreadyPlaced = new StringBuilder();
+            if(board.getSquare(row - 1, column) == null) {
+                Arrays.fill(crossCheck, true);
+            } else {
+                for (int i = row - 1; i > 0; i--) {
+                    if (board.getSquare(i, column).getPlacedLetter() == null) {
                         break;
+                    } else {
+                        alreadyPlaced.insert(0, board.getSquare(i, column).getPlacedLetter().getLetter());
                     }
                 }
-                String finalWord = word.toString();
+
                 for (int i = 0; i < 26; i++) {
-                    String key = finalWord + ((char) (i + 'a'));
-                    crossCheck[i] = trie.search(key.toLowerCase());
+                    char currentLetter = (char) (i + 'a');
+                    if (crossCheck[i] == null || crossCheck[i]) {
+                        String searchWord = alreadyPlaced.toString() + currentLetter;
+                        crossCheck[i] = trie.search(searchWord);
+                    }
                 }
             }
-        }
-
-        if(column != 0) {
-            if(board.getSquare(row, column - 1).getPlacedLetter() != null) {
-                Square temp = board.getSquare(row, column-1);
-                StringBuilder word = new StringBuilder();
-                while(temp.getPlacedLetter() != null) {
-                    word.insert(0, temp.getPlacedLetter());
-                    try {
-                        temp = board.getSquare(temp.getRow(), temp.getColumn() - 1);
-                    } catch (IndexOutOfBoundsException e) {
+        } else {
+            if(board.getSquare(row-1, column).getPlacedLetter() == null
+                    && board.getSquare(row+1, column) == null) {
+                Arrays.fill(crossCheck, true);
+            } else {
+                StringBuilder firstHalf = new StringBuilder();
+                StringBuilder secondHalf = new StringBuilder();
+                //Build first half of word.
+                for (int i = row - 1; i > 0; i--) {
+                    if (board.getSquare(i, column).getPlacedLetter() == null) {
                         break;
+                    } else {
+                        firstHalf.insert(0, board.getSquare(i, column).getPlacedLetter().getLetter());
                     }
                 }
-                String finalWord = word.toString();
-                for (int i = 0; i < 26; i++) {
-                    String key = finalWord + ((char) (i + 'a'));
-                    crossCheck[i] = trie.search(key.toLowerCase());
-                }
-            }
-        }
 
-        if(column != board.getColumnLength()-1) {
-            if(board.getSquare(row, column + 1).getPlacedLetter() != null) {
-                Square temp = board.getSquare(row, column + 1);
-                StringBuilder word = new StringBuilder();
-                while(temp.getPlacedLetter() != null) {
-                    word.append(temp.getPlacedLetter());
-                    try {
-                        temp = board.getSquare(temp.getRow(), temp.getColumn() + 1);
-                    } catch (IndexOutOfBoundsException e) {
+                for (int i = row + 1; i < board.getRowLength(); i++) {
+                    if (board.getSquare(i, column).getPlacedLetter() == null) {
                         break;
+                    } else {
+                        secondHalf.append(board.getSquare(i, column).getPlacedLetter().getLetter());
                     }
                 }
-                String finalWord = word.toString();
-                for (int i = 0; i < 26; i++) {
-                    String key = finalWord + ((char) (i + 'a'));
-                    crossCheck[i] = trie.search(key.toLowerCase());
+
+                for(int i = 0; i < 26; i++) {
+                    char currentLetter = (char) (i+ 'a');
+                    String searchWord = firstHalf.toString() + currentLetter + secondHalf.toString();
+
+                    if(crossCheck[i] == null || crossCheck[i]) {
+                        crossCheck[i] = trie.search(searchWord);
+                    }
                 }
             }
         }

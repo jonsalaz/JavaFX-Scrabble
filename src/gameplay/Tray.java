@@ -18,7 +18,6 @@ public class Tray {
             if (tile.getLetter() == c) {
                 return true;
             }
-            //TODO: Check if contains works with wild card.
             else if(tile.getLetter() == '*') {
                 return true;
             }
@@ -28,7 +27,6 @@ public class Tray {
     }
 
     public Tile get(char c) {
-        //TODO: Check if get function works with wild cards.
         //First check if the tray contains a tile with the letter.
         for (Tile tile:
                 tray) {

@@ -19,7 +19,6 @@ public class Tile {
     }
 
     public static int getScore(char c) {
-        //TODO: A character's value is 0 if it is a freshly placed wild card but not if it's a preplaced wildcard.
         if(Character.isUpperCase(c)) {
             return 0;
         }

@@ -169,7 +169,6 @@ public class Solver {
                     nextSquare = board.getSquare(square.getRow(), square.getColumn() + 1);
                 } catch(IndexOutOfBoundsException e) {
                     if(N.getChildren()[Character.toLowerCase(l.getLetter())-'a'].isTerminal()) {
-                        //TODO: Does this need the wild card thing?
                         legalMove(partialWord + l.getLetter(), square.getRow(), square.getColumn()+1);
                     }
                     return;
@@ -181,10 +180,6 @@ public class Solver {
     }
 
     private void legalMove(String move, int row, int column) {
-        //TODO: Check scoring. Scoring works on the first two test cases given by the prof but does not work on the
-        // second test case given by a student in the discord.
-
-        //TODO: might have to adjust code to account for uppercase letters/wildcard.
         int tempScore = 0;
         int wordMult = 1;
         int counter = 0;

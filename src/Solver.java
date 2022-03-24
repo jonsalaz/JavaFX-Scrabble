@@ -90,7 +90,6 @@ public class Solver {
                 limit += 1;
             }
         }
-        System.out.println(board);
         board.transpose();
         System.out.println("Solution " + moveWord + " has " + moveScore + " points");
         System.out.println("The board was transposed?: " + transpose);

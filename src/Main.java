@@ -84,6 +84,7 @@ public class Main {
             solver.solve();
             System.out.println("Solution Board:");
             System.out.println(board);
+            System.out.println();
         }
     }
 }

@@ -9,7 +9,11 @@ public class Board {
         this.transpose = false;
 
         for(int r = 0; r < dim; r++) {
-            String[] places = rows[r].split(" ");
+            if(rows[r].charAt(0) == ' ') {
+                rows[r] = rows[r].substring(1);
+            }
+
+            String[] places = rows[r].split("\\s+");
             for (int c = 0; c < dim; c++) {
                 if(places[c].length() == 2) {
                     board[r][c] = new Square(places[c].charAt(0), places[c].charAt(1), r, c);
@@ -44,33 +48,33 @@ public class Board {
         for(int r = 0; r < board.length; r++) {
             for(int c = 0; c < board[r].length; c++) {
                 if(board[r][c].getPlacedLetter() == null) {
-                    try{
+
+                    if(r != 0) {
                         if(board[r-1][c].getPlacedLetter() != null) {
                             anchors.add(board[r][c]);
                             continue;
                         }
-                    }catch (Exception e) {
                     }
-                    try{
+
+                    if(r != board.length-1) {
                         if(board[r+1][c].getPlacedLetter() != null) {
                             anchors.add(board[r][c]);
                             continue;
                         }
-                    }catch (Exception e) {
                     }
-                    try{
+
+                    if(c != 0) {
                         if(board[r][c-1].getPlacedLetter() != null) {
                             anchors.add(board[r][c]);
                             continue;
                         }
-                    }catch (Exception e) {
                     }
-                    try{
+
+                    if(c != board[r].length-1) {
                         if(board[r][c+1].getPlacedLetter() != null) {
                             anchors.add(board[r][c]);
                             continue;
                         }
-                    }catch (Exception e) {
                     }
                 }
             }
@@ -119,7 +123,9 @@ public class Board {
         for(int i = 0; i < moveWord.length(); i++) {
             if(placement.getPlacedLetter() != null) {
                 //If letter is already on board.
-                placement = board[placement.getRow()][placement.getColumn()+1];
+                if(i != moveWord.length()-1) {
+                    placement = board[placement.getRow()][placement.getColumn() + 1];
+                }
             }
             else if(tray.contains(moveWord.charAt(i))) {
                 //If tray does not contain a placed letter.

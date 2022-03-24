@@ -156,6 +156,9 @@ public class Solver {
     }
 
     private void legalMove(String move, int row, int column) {
+        //TODO: Check scoring. Scoring works on the first two test cases given by the prof but does not work on the
+        // second test case given by a student in the discord.
+
         int tempScore = 0;
         int wordMult = 1;
         int counter = 0;

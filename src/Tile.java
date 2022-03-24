@@ -17,7 +17,14 @@ public class Tile {
     }
 
     public static int getScore(char c) {
-        return points.get(Character.toLowerCase(c));
+        if(Character.isUpperCase(c)) {
+            return 0;
+        }
+        return points.get(c);
+    }
+
+    public void setLetter(char c) {
+        letter = c;
     }
 
     @Override

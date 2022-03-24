@@ -1,3 +1,8 @@
+/**
+ * Author: Jonathan Salazar
+ * The Board class is used to store data pertaining to the board and contains
+ * any functions pertaining to playing moves to the board.
+ */
 package gameplay;
 
 import java.util.ArrayList;
@@ -6,6 +11,11 @@ public class Board {
     private Square[][] board;
     private boolean transpose;
 
+    /**
+     * Constructor class for the board object.
+     * @param dim the dimension of the board. The board is assumed to be square.
+     * @param rows An array consisting of strings representing the boards configuration.
+     */
     public Board(int dim, String[] rows) {
         board = new Square[dim][dim];
         this.transpose = false;
@@ -27,6 +37,10 @@ public class Board {
         }
     }
 
+    /**
+     * Handles the representation of the board object as a string.
+     * @return the string representation of the board object.
+     */
     @Override
     public String toString() {
         String temp = "";
@@ -41,10 +55,21 @@ public class Board {
         return temp;
     }
 
+    /**
+     * A getter for the square at a given row and column.
+     * @param row The row of the desired square.
+     * @param column The column of the desired square.
+     * @return The desired square given row and column.
+     */
     public Square getSquare(int row, int column) {
         return board[row][column];
     }
 
+    /**
+     * Determines what squares are candidate anchors dependent on if there is a placed letter
+     * to the left, right, top, or bottom of a given square.
+     * @return An ArrayList of squares containing every candidate anchor square on the board.
+     */
     public ArrayList<Square> getAnchors() {
         ArrayList<Square> anchors = new ArrayList<>();
         for(int r = 0; r < board.length; r++) {
@@ -84,14 +109,25 @@ public class Board {
         return anchors;
     }
 
+    /**
+     * A getter for the row length of the board.
+     * @return The row length.
+     */
     public int getRowLength() {
         return board.length;
     }
 
+    /**
+     * A getter for the column length of the board.
+     * @return The column length.
+     */
     public int getColumnLength() {
         return board[0].length;
     }
 
+    /**
+     * Transposes the board and ensures that each squares row and column values are updated accordingly.
+     */
     public void transpose() {
         Square[][] temp = new Square[board.length][board[0].length];
         for (int r = 0; r < board.length; r++) {
@@ -109,10 +145,24 @@ public class Board {
         }
     }
 
+    /**
+     * Determines whether the board is currently in a transposed state.
+     * @return A boolean representing whether or not the board is in a transposed state.
+     */
     public boolean isTranpose() {
         return this.transpose;
     }
 
+    /**
+     * Given the conditions of a move, plays the move to the board.
+     * @param moveWord The word to be played.
+     * @param tray The players current tray.
+     * @param moveScore The move's score.
+     * @param moveRow The move's intended row.
+     * @param moveCol The move's intended column.
+     * @param transpose Whether the move was transposed when the move was found (assuming only across moves are
+     *                  able to be calculated).
+     */
     public void playMove(String moveWord, Tray tray, int moveScore, int moveRow, int moveCol, boolean transpose) {
         boolean flipped = false;
         if(transpose) {

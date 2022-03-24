@@ -1,3 +1,7 @@
+/**
+ * Author: Jonathan Salazar
+ * terminalApplication.Main.java is used as the entry point for the terminal solver.
+ */
 package terminalApplication;
 import gameplay.*;
 
@@ -7,6 +11,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    /**
+     * The entry point for the terminal solver.
+     * @param args Args' first value should contain the relative path to the dictionary config file.
+     */
     public static void main(String[] args) {
         // gameplay.Trie needed for word checking.
         Trie trie;

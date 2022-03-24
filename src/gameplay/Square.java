@@ -1,3 +1,8 @@
+/**
+ * Author: Jonathan Salazar
+ * The Square object represents a single square on the scrabble board which contains data
+ * on the position, scoring multipliers, and currently placed Tile.
+ */
 package gameplay;
 
 import java.util.Arrays;
@@ -9,6 +14,13 @@ public class Square {
     private int lm;
     private Tile placedLetter;
 
+    /**
+     * Constructor class for Square.
+     * @param wm The word multiplier of the square.
+     * @param lm The letter multiplier of the square.
+     * @param row The square's row.
+     * @param column The square's column.
+     */
     public Square(char wm, char lm, int row, int column) {
         if(wm == '.'){
             this.wm = 1;
@@ -28,6 +40,12 @@ public class Square {
         this.column = column;
     }
 
+    /**
+     * Constructor class for Square.
+     * @param letter The letter on the square.
+     * @param row The square's row.
+     * @param column The square's column.
+     */
     public Square(char letter, int row, int column) {
         this.wm = 1;
         this.lm = 1;
@@ -37,18 +55,37 @@ public class Square {
         this.column = column;
     }
 
+    /**
+     * Getter for the currently placed tile.
+     * @return The tile that is currently placed.
+     */
     public Tile getPlacedLetter() {
         return placedLetter;
     }
 
+    /**
+     * Getter for the word multiplier of the square.
+     * @return The word multiplier of the square.
+     */
     public int getWordMultiplier() {
         return wm;
     }
 
+    /**|
+     * Getter for the letter multiplier of the square.
+     * @return The letter multiplier of the square.
+     */
     public int getLetterMultiplier() {
         return lm;
     }
 
+    /**
+     * Determines the crosschecks for the square given the current state of the board and the dictionary
+     * currently being used.
+     * @param board A reference to the board.
+     * @param trie A reference to the Trie dictionary.
+     * @return A boolean array representing whether a given letter is playable in the square.
+     */
     public Boolean[] getCrossCheck(Board board, Trie trie) {
         Boolean[] crossCheck = new Boolean[26];
 
@@ -134,6 +171,10 @@ public class Square {
         return crossCheck;
     }
 
+    /**
+     * Determines the representation of the square as a string.
+     * @return The string representing the square.
+     */
     @Override
     public String toString() {
         if (placedLetter != null) {
@@ -160,20 +201,35 @@ public class Square {
         }
     }
 
+    /**
+     * Getter for the column of the square.
+     * @return The column of the square.
+     */
     public int getColumn() {
         return column;
     }
 
+    /**
+     * Getter for the row of the square.
+     * @return The row of the square.
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     * Updates the current square by swapping the row and the column values when the board is transposed.
+     */
     public void transpose() {
         int temp = this.row;
         this.row = this.column;
         this.column = temp;
     }
 
+    /**
+     * Setter for the current placed Tile.
+     * @param tile The tile to be placed on the square.
+     */
     public void setPlacedLetter(Tile tile) {
         this.placedLetter = tile;
     }

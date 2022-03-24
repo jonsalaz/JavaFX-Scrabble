@@ -1,3 +1,7 @@
+/**
+ * Author: Jonathan Salazar
+ * The Trie object is used as a representation of a dictionary to determine what constitutes a valid word.
+ */
 package gameplay;
 
 import java.io.File;
@@ -7,6 +11,11 @@ import java.util.Scanner;
 public class Trie {
     private final TrieNode ROOT = new TrieNode();
 
+    /**
+     * A constructor for the Trie.
+     * @param dict The filename of the dictionary to be used.
+     * @throws FileNotFoundException
+     */
     public Trie(String dict) throws FileNotFoundException {
         File file = new File(dict);
         Scanner scanner = new Scanner(file);
@@ -37,11 +46,15 @@ public class Trie {
         current.setTerminal();
     }
 
+    /**
+     * Checks if the given string is a valid word in the Trie.
+     * @param word the word to be checked.
+     * @return A boolean representing whether the word is valid.
+     */
     public Boolean search(String word) {
         word = word.toLowerCase();
         int length = word.length();
         TrieNode nextNode = ROOT;
-
         for(int level = 0; level < length; level++) {
             int index = Character.toLowerCase(word.charAt(level)) - 'a';
             if(nextNode.getChildren()[index] == null) {
@@ -53,7 +66,6 @@ public class Trie {
         }
         return nextNode.isTerminal();
     }
-
     public TrieNode getRoot() {
         return ROOT;
     }

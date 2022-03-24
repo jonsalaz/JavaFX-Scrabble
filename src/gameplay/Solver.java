@@ -1,3 +1,8 @@
+/**
+ * Author: Jonathan Salazar
+ * The Solver class is used to find the optimal move given the boards current state, a tray,
+ * and a dictionary represented as a Trie.
+ */
 package gameplay;
 
 import java.util.ArrayList;
@@ -13,12 +18,22 @@ public class Solver {
     private int moveScore;
     private boolean transpose;
 
+    /**
+     * Construction class for Solver.
+     * @param board A reference to the current board.
+     * @param tray A reference to the tray.
+     * @param trie A reference to the Trie dictionary.
+     */
     public Solver(Board board, Tray tray, Trie trie) {
         this.board = board;
         this.tray = tray;
         this.trie = trie;
     }
 
+    /**
+     * Checks for all possible moves on every anchor square through a backtracking algorithm found
+     * in the paper The World's Fastest Scrabble Program by Andrew W. Appel and Guy J. Jacobson.
+     */
     public void solve() {
         ArrayList<Square> anchorSquares = board.getAnchors();
         int limit;

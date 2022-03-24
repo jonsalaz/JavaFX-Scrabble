@@ -103,7 +103,15 @@ public class Solver {
                     Tile l = tray.get((char) (i+'a'));
                     tray.remove(l);
                     TrieNode newN = N.getChildren()[i];
-                    leftPart(partialWord + Character.toLowerCase(l.getLetter()), newN, limit - 1, anchorSquare);
+                    //If a wildcard is used, use the upper case version of the currently checked letter.
+                    if(l.getLetter() == '*') {
+                        partialWord += Character.toUpperCase((char) (i + 'a'));
+                    }
+                    else{
+                        partialWord += Character.toLowerCase(l.getLetter());
+                    }
+                    leftPart(partialWord, newN, limit - 1, anchorSquare);
+                    partialWord = partialWord.substring(0, partialWord.length()-1);
                     tray.add(l);
                 }
             }
@@ -127,24 +135,39 @@ public class Solver {
                         nextSquare = board.getSquare(square.getRow(), square.getColumn() + 1);
                     } catch(IndexOutOfBoundsException e) {
                         if(newN.isTerminal()) {
-                            legalMove(partialWord+l.getLetter(), square.getRow(), square.getColumn()+1);
+                            if(l.getLetter() == '*') {
+                                partialWord += Character.toUpperCase((char) (i + 'a'));
+                            }
+                            else{
+                                partialWord += Character.toLowerCase(l.getLetter());
+                            }
+                            legalMove(partialWord, square.getRow(), square.getColumn()+1);
+                            partialWord = partialWord.substring(0, partialWord.length()-1);
                         }
                         tray.add(l);
                         continue;
                     }
-                    extendRight(partialWord + l.getLetter(), newN, nextSquare, depth + 1);
+                    if(l.getLetter() == '*') {
+                        partialWord += Character.toUpperCase((char) (i + 'a'));
+                    }
+                    else{
+                        partialWord += Character.toLowerCase(l.getLetter());
+                    }
+                    extendRight(partialWord, newN, nextSquare, depth + 1);
+                    partialWord = partialWord.substring(0, partialWord.length()-1);
                     tray.add(l);
                 }
             }
         }
         else {
             Tile l = square.getPlacedLetter();
-            if(N.getChildren()[l.getLetter()-'a'] != null) {
+            if(N.getChildren()[Character.toLowerCase(l.getLetter())-'a'] != null) {
                 Square nextSquare;
                 try {
                     nextSquare = board.getSquare(square.getRow(), square.getColumn() + 1);
                 } catch(IndexOutOfBoundsException e) {
-                    if(N.getChildren()[l.getLetter()-'a'].isTerminal()) {
+                    if(N.getChildren()[Character.toLowerCase(l.getLetter())-'a'].isTerminal()) {
+                        //TODO: Does this need the wild card thing?
                         legalMove(partialWord + l.getLetter(), square.getRow(), square.getColumn()+1);
                     }
                     return;
@@ -159,6 +182,7 @@ public class Solver {
         //TODO: Check scoring. Scoring works on the first two test cases given by the prof but does not work on the
         // second test case given by a student in the discord.
 
+        //TODO: might have to adjust code to account for uppercase letters/wildcard.
         int tempScore = 0;
         int wordMult = 1;
         int counter = 0;

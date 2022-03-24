@@ -92,7 +92,6 @@ public class Solver {
         }
         board.transpose();
         System.out.println("Solution " + moveWord + " has " + moveScore + " points");
-        System.out.println("The board was transposed?: " + transpose);
         board.playMove(moveWord, tray, moveScore, moveRow, moveCol, transpose);
     }
 

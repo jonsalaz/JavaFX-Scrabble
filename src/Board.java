@@ -132,6 +132,9 @@ public class Board {
                 Tile tile = tray.get(moveWord.charAt(i));
                 tray.remove(tile);
                 placement.setPlacedLetter(tile);
+                if(tile.getLetter() == '*') {
+                    tile.setLetter(moveWord.charAt(i));
+                }
                 if(i != moveWord.length() - 1) {
                     placement = board[placement.getRow()][placement.getColumn() + 1];
                 }

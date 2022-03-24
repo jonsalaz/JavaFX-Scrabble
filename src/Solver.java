@@ -251,13 +251,17 @@ public class Solver {
             //Check for down words and up words.
             counter = 0;
             for(int i = move.length(); i > 0; i--) {
+                int localMult = 1;
+                int localScore = 0;
                 //Only read the placed letter once instead of twice if there are letters above AND below
                 if((board.getSquare(row + 1, column-i).getPlacedLetter() != null
                         || board.getSquare(row-1, column-i).getPlacedLetter() != null)
                         && board.getSquare(row, column-i).getPlacedLetter() == null) {
                     //Re-add placed letter with letter multiplier.
-                    tempScore += Tile.getScore(move.charAt(counter))
+                    localScore += Tile.getScore(move.charAt(counter))
                             * board.getSquare(row, column - i).getLetterMultiplier();
+                    //Get word multiplier if there is one.
+                    localMult *= board.getSquare(row, column - i).getWordMultiplier();
                 }
 
                 //Check if a word is formed in the down direction.
@@ -266,14 +270,14 @@ public class Solver {
                     //Get the square below the placed letter as our starting point.
                     Square temp = board.getSquare(row+1, column-i);
                     //Add the starting letters score.
-                    tempScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                    localScore += Tile.getScore(temp.getPlacedLetter().getLetter());
                     //Loop until a null character is reached or the index will be out of bounds.
                     while((temp.getRow()+1 < board.getRowLength())
                             && board.getSquare(temp.getRow()+1, column-i).getPlacedLetter() != null) {
                         //Get the next square (if it is not out of bounds and has a letter placed.)
                         temp = board.getSquare(temp.getRow()+1, column-i);
                         //Add the score of the square to the score.
-                        tempScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                        localScore += Tile.getScore(temp.getPlacedLetter().getLetter());
                     }
                 }
 
@@ -283,16 +287,18 @@ public class Solver {
                     //Get the square above the placed letter as our starting point.
                     Square temp = board.getSquare(row-1, column-i);
                     //Add the starting letters score.
-                    tempScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                    localScore += Tile.getScore(temp.getPlacedLetter().getLetter());
                     //Loop until a null character is reached or the index will be out of bounds.
                     while((temp.getRow()-1 > 0)
                             && board.getSquare(temp.getRow()-1, column-i).getPlacedLetter() != null) {
                         //Get the next square (if it is not out of bounds and has a letter placed.)
                         temp = board.getSquare(temp.getRow()-1, column-i);
                         //Add the score of the square to the score.
-                        tempScore += Tile.getScore(Character.toLowerCase(temp.getPlacedLetter().getLetter()));
+                        localScore += Tile.getScore(Character.toLowerCase(temp.getPlacedLetter().getLetter()));
                     }
                 }
+                localScore *= localMult;
+                tempScore += localScore;
                 counter++;
             }
         }

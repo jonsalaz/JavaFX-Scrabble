@@ -62,11 +62,6 @@ public class Tray {
     }
 
     public boolean isBingo() {
-        if (tray.isEmpty()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return tray.isEmpty();
     }
 }

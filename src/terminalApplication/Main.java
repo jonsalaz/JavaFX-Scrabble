@@ -1,3 +1,6 @@
+package terminalApplication;
+import gameplay.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
@@ -8,7 +11,7 @@ public class Main {
         // Necessary objects for game state parsing.
         Scanner fileScanner;
         File config;
-        // Trie needed for word checking.
+        // gameplay.Trie needed for word checking.
         Trie trie;
 
         // Freq List
@@ -28,7 +31,7 @@ public class Main {
             return;
         }
 
-        // Trie Creation
+        // gameplay.Trie Creation
         try {
             trie = new Trie(args[1]);
         } catch (FileNotFoundException e) {

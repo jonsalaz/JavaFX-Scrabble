@@ -1,3 +1,5 @@
+package gameplay;
+
 import java.util.HashMap;
 
 public class Tile {

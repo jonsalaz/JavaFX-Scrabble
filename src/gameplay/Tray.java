@@ -1,3 +1,5 @@
+package gameplay;
+
 import java.util.ArrayList;
 
 public class Tray {
@@ -53,7 +55,7 @@ public class Tray {
 
     @Override
     public String toString() {
-        StringBuilder temp = new StringBuilder("Tray: ");
+        StringBuilder temp = new StringBuilder("gameplay.Tray: ");
         for (Tile letter: tray) {
             temp.append(letter.toString());
         }

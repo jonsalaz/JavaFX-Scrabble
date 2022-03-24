@@ -1,3 +1,5 @@
+package gameplay;
+
 public class TrieNode {
     private TrieNode[] children;
     private boolean terminal;

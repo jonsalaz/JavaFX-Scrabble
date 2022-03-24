@@ -1,3 +1,5 @@
+package gameplay;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -31,7 +33,7 @@ public class Trie {
             }
             current = current.getChildren()[index];
         }
-        //Set the last TrieNode in the word as a terminal node.
+        //Set the last gameplay.TrieNode in the word as a terminal node.
         current.setTerminal();
     }
 

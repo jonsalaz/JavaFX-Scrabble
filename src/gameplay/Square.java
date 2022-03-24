@@ -1,3 +1,5 @@
+package gameplay;
+
 import java.util.Arrays;
 
 public class Square {

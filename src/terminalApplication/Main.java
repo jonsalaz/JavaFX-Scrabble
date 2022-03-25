@@ -28,7 +28,7 @@ public class Main {
                 String line;
 
                 line = freqScanner.nextLine();
-                Tile.addKey(line.charAt(0), Integer.parseInt(line.substring(2, 3)));
+                Tile.addKey(line.charAt(0), Integer.parseInt(line.substring(2, 4).replace(" ", "")));
             }
         }
         catch(Exception e){
@@ -61,6 +61,7 @@ public class Main {
                 dim = fileScanner.nextInt();
             }
             catch(InputMismatchException e) {
+                System.out.println(fileScanner.next());
                 e.printStackTrace();
                 System.exit(1);
                 return;

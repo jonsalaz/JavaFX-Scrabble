@@ -5,10 +5,10 @@
  */
 package gameplay;
 
+import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 import java.util.Arrays;
 
@@ -244,7 +244,8 @@ public class Square {
         rectangle.setHeight(20);
         rectangle.setWidth(20);
         if(placedLetter == null) {
-            rectangle.setVisible(false);
+            rectangle.setOpacity(0);
+            rectangle.setVisible(true);
             return rectangle;
         }
         else {

@@ -1,12 +1,18 @@
 package guiApplication;
 
 import gameplay.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
+import java.awt.event.ActionEvent;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -27,6 +33,7 @@ public class ScrabbleController {
     private Trie trie;
     private Board board;
     private Tray tray;
+    private Square selected;
 
     public void initialize() {
         //Initialize tiles.
@@ -73,7 +80,26 @@ public class ScrabbleController {
         scrabbleGrid.getChildren().clear();
         for(int r = 0; r < board.getRowLength(); r++) {
             for(int c = 0; c < board.getColumnLength(); c++) {
-                scrabbleGrid.add(board.getSquare(r, c).toDisplay(), c, r);
+                if(board.getSquare(r, c) == selected) {
+                    Rectangle rectangle = new Rectangle();
+                    rectangle.setHeight(20);
+                    rectangle.setWidth(20);
+                    rectangle.setFill(Color.RED);
+                    scrabbleGrid.add(rectangle, c, r);
+                    continue;
+                }
+                Node node = board.getSquare(r, c).toDisplay();
+                int finalC = c;
+                int finalR = r;
+                node.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        System.out.println("YOU CLICKED ME");
+                        setSelected(finalR, finalC);
+                        updateBoard();
+                    }
+                });
+                scrabbleGrid.add(node, c, r);
             }
         }
     }
@@ -83,5 +109,9 @@ public class ScrabbleController {
         for (Tile tile: tray.getChildren()) {
             trayDisplay.getChildren().add(tile.toDisplay());
         }
+    }
+
+    public void setSelected(int row, int column) {
+        this.selected = board.getSquare(row, column);
     }
 }

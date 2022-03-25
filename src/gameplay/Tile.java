@@ -4,6 +4,11 @@
  */
 package gameplay;
 
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+
 import java.util.HashMap;
 
 public class Tile {
@@ -62,5 +67,10 @@ public class Tile {
     @Override
     public String toString() {
         return Character.toString(letter);
+    }
+
+    public Node toDisplay() {
+        Text text = new Text(Character.toString(letter));
+        return text;
     }
 }

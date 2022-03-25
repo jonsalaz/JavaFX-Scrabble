@@ -104,4 +104,8 @@ public class Tray {
     public boolean isBingo() {
         return tray.isEmpty();
     }
+
+    public ArrayList<Tile> getChildren() {
+        return tray;
+    }
 }

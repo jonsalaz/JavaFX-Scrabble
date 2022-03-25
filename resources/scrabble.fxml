@@ -72,7 +72,7 @@
             <HBox alignment="CENTER" prefHeight="37.0" prefWidth="600.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tray:" wrappingWidth="31.336698532104492" />
-                  <HBox prefHeight="37.0" prefWidth="271.0" />
+                  <HBox fx:id="trayDisplay" alignment="CENTER" prefHeight="37.0" prefWidth="271.0" spacing="10.0" />
                </children>
             </HBox>
             <FlowPane alignment="CENTER" hgap="10.0" prefHeight="59.0" prefWidth="600.0">

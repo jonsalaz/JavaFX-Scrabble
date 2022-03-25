@@ -1,19 +1,19 @@
 package guiApplication;
 
-import gameplay.Board;
-import gameplay.TileBag;
-import gameplay.Tray;
-import gameplay.Trie;
+import gameplay.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
 
 public class ScrabbleController {
+    @FXML
+    private HBox trayDisplay;
     @FXML
     private TextField moveWord;
     @FXML
@@ -60,6 +60,7 @@ public class ScrabbleController {
 
         //Initialize players tray.
         tray = new Tray(tileBag);
+        updateTray();
     }
 
     public void playerMove() {
@@ -68,12 +69,20 @@ public class ScrabbleController {
     }
 
     private void updateBoard() {
-        GridPane tempGrid = new GridPane();
+        scrabbleGrid.getChildren().clear();
         for(int r = 0; r < board.getRowLength(); r++) {
             for(int c = 0; c < board.getColumnLength(); c++) {
-                tempGrid.add(board.getSquare(r, c).toDisplay(), c, r);
+                scrabbleGrid.add(board.getSquare(r, c).toDisplay(), c, r);
             }
         }
-        scrabbleGrid = tempGrid;
+    }
+
+    private void updateTray() {
+        trayDisplay.getChildren().clear();
+
+        for (Tile tile: tray.getChildren()) {
+            trayDisplay.getChildren().add(tile.toDisplay());
+        }
+
     }
 }

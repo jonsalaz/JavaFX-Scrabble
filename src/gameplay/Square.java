@@ -242,7 +242,7 @@ public class Square {
         rectangle.setHeight(20);
         rectangle.setWidth(20);
         if(placedLetter == null) {
-            rectangle.setFill(Color.BLUE);
+            rectangle.setVisible(false);
             return rectangle;
         }
         else {

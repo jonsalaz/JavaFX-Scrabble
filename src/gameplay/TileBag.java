@@ -5,10 +5,13 @@ import java.util.ArrayList;
 public class TileBag {
     private ArrayList<Tile> tiles;
 
-    public TileBag(char c, int point, int freq) {
+    public TileBag() {
         tiles = new ArrayList<>(100);
+    }
+
+    public void addTile(char c, int point, int freq) {
         Tile.addKey(c, point);
-        for(int i = 0; i < freq; i++) {
+        for (int i = 0; i < freq; i++) {
             tiles.add(new Tile(c));
         }
     }

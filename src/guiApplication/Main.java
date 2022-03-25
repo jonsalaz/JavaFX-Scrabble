@@ -19,10 +19,11 @@ public class Main extends Application {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream is = classLoader.getResourceAsStream("scrabble_tiles.txt");
         Scanner freqScanner = new Scanner(is);
+        tileBag = new TileBag();
         while(freqScanner.hasNextLine()) {
             String line;
             line = freqScanner.nextLine();
-            tileBag = new TileBag(line.charAt(0),
+            tileBag.addTile(line.charAt(0),
                     Integer.parseInt(line.substring(2, 4).replace(" ", "")),
                     Integer.parseInt(line.substring(4).replace(" ", "")));
         }

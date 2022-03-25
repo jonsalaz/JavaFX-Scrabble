@@ -12,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.awt.event.ActionEvent;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -32,8 +31,10 @@ public class ScrabbleController {
     private TileBag tileBag;
     private Trie trie;
     private Board board;
+    private Tray computerTray;
     private Tray tray;
     private Square selected;
+
 
     public void initialize() {
         //Initialize tiles.
@@ -66,12 +67,23 @@ public class ScrabbleController {
         updateBoard();
 
         //Initialize players tray.
+        computerTray = new Tray(tileBag);
         tray = new Tray(tileBag);
         updateTray();
     }
 
     public void playerMove() {
         moveWord.setText("PLAYER MOVE");
+        int row = selected.getRow();
+        int column = selected.getColumn();
+        String word = moveWord.getText().toLowerCase();
+        Boolean across = acrossButton.isFocused();
+
+        //TODO: Check if it's a legal move.
+        board.checkIfLegal(word, row, column, across, tray);
+        //TODO: Calculate the score.
+        //TODO: Play the move.
+
         updateBoard();
         updateTray();
     }
@@ -94,7 +106,6 @@ public class ScrabbleController {
                 node.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        System.out.println("YOU CLICKED ME");
                         setSelected(finalR, finalC);
                         updateBoard();
                     }

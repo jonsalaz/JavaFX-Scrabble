@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Board {
     private Square[][] board;
     private boolean transpose;
+    private Trie trie;
 
     /**
      * Constructor class for the board object.
@@ -36,6 +37,29 @@ public class Board {
             }
         }
     }
+
+    public Board(int dim, String[] rows, Trie trie) {
+        board = new Square[dim][dim];
+        this.trie = trie;
+        this.transpose = false;
+
+        for(int r = 0; r < dim; r++) {
+            if(rows[r].charAt(0) == ' ') {
+                rows[r] = rows[r].substring(1);
+            }
+
+            String[] places = rows[r].split("\\s+");
+            for (int c = 0; c < dim; c++) {
+                if(places[c].length() == 2) {
+                    board[r][c] = new Square(places[c].charAt(0), places[c].charAt(1), r, c);
+                }
+                else {
+                    board[r][c] = new Square(places[c].charAt(0), r, c);
+                }
+            }
+        }
+    }
+
 
     /**
      * Handles the representation of the board object as a string.
@@ -197,5 +221,17 @@ public class Board {
         if(flipped) {
             this.transpose();
         }
+    }
+
+    public boolean checkIfLegal(String word, int row, int column, Boolean across, Tray tray) {
+        for(int i = 0; i < word.length(); i++) {
+            if(!board[row][column].getCrossCheck(this, trie)[word.charAt(i)-'a']) {
+                return false;
+            } else if(!tray.contains(word.charAt(i))) {
+                //TODO: Remove and put tiles back so that we can confirm whether the tray contains enough of each letter.
+                return false;
+            }
+        }
+        return false;
     }
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiApplication.Scrabble">
+   <children>
+      <VBox alignment="CENTER" layoutX="7.0" prefHeight="400.0" prefWidth="587.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="349.0" prefWidth="346.0">
+               <children>
+                  <ImageView fitHeight="351.0" fitWidth="347.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/scrabble_board.png" />
+                     </image>
+                  </ImageView>
+                  <GridPane alignment="CENTER" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="345.0" prefWidth="345.0" StackPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </children>
+            </StackPane>
+            <FlowPane alignment="CENTER" hgap="10.0" prefHeight="38.0" prefWidth="600.0">
+               <children>
+                  <TextField />
+                  <RadioButton mnemonicParsing="false" text="Across" />
+                  <RadioButton mnemonicParsing="false" text="Down" />
+                  <Button mnemonicParsing="false" text="Play Move" />
+               </children>
+            </FlowPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

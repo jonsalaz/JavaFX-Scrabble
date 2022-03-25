@@ -6,6 +6,7 @@ package gameplay;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class Trie {
@@ -19,6 +20,20 @@ public class Trie {
     public Trie(String dict) throws FileNotFoundException {
         File file = new File(dict);
         Scanner scanner = new Scanner(file);
+
+        while (scanner.hasNextLine()) {
+            String word = scanner.nextLine().toLowerCase();
+            insert(word);
+        }
+        scanner.close();
+    }
+
+    /**
+     * Constructor for Trie given an InputStream.
+     * @param dict An input stream of the txt file with all valid words.
+     * */
+    public Trie(InputStream dict) {
+        Scanner scanner = new Scanner(dict);
 
         while (scanner.hasNextLine()) {
             String word = scanner.nextLine().toLowerCase();

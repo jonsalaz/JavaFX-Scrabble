@@ -5,6 +5,9 @@
  */
 package gameplay;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 import java.util.Arrays;
 
 public class Square {
@@ -232,5 +235,19 @@ public class Square {
      */
     public void setPlacedLetter(Tile tile) {
         this.placedLetter = tile;
+    }
+
+    public Rectangle toDisplay() {
+        Rectangle rectangle = new Rectangle();
+        rectangle.setHeight(20);
+        rectangle.setWidth(20);
+        if(placedLetter == null) {
+            rectangle.setFill(Color.BLUE);
+            return rectangle;
+        }
+        else {
+            rectangle.setFill(Color.BLUE);
+            return rectangle;
+        }
     }
 }

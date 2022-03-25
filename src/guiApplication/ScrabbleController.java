@@ -7,6 +7,7 @@ import gameplay.Trie;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -15,15 +16,19 @@ import java.util.Scanner;
 public class ScrabbleController {
     @FXML
     private TextField moveWord;
+    @FXML
+    private GridPane scrabbleGrid;
+    @FXML
     private RadioButton downButton;
+    @FXML
     private RadioButton acrossButton;
 
-    private static TileBag tileBag;
-    private static Trie trie;
-    private static Board board;
-    private static Tray tray;
+    private TileBag tileBag;
+    private Trie trie;
+    private Board board;
+    private Tray tray;
 
-    public static void initializeGame() {
+    public void initialize() {
         //Initialize tiles.
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream is = classLoader.getResourceAsStream("scrabble_tiles.txt");
@@ -51,6 +56,7 @@ public class ScrabbleController {
             rows[i] = boardScanner.nextLine();
         }
         board = new Board(dim, rows);
+        updateBoard();
 
         //Initialize players tray.
         tray = new Tray(tileBag);
@@ -58,5 +64,16 @@ public class ScrabbleController {
 
     public void playerMove() {
         moveWord.setText("PLAYER MOVE");
+        updateBoard();
+    }
+
+    private void updateBoard() {
+        GridPane tempGrid = new GridPane();
+        for(int r = 0; r < board.getRowLength(); r++) {
+            for(int c = 0; c < board.getColumnLength(); c++) {
+                tempGrid.add(board.getSquare(r, c).toDisplay(), c, r);
+            }
+        }
+        scrabbleGrid = tempGrid;
     }
 }

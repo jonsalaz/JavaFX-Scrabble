@@ -5,8 +5,10 @@
  */
 package gameplay;
 
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.util.Arrays;
 
@@ -237,7 +239,7 @@ public class Square {
         this.placedLetter = tile;
     }
 
-    public Rectangle toDisplay() {
+    public Node toDisplay() {
         Rectangle rectangle = new Rectangle();
         rectangle.setHeight(20);
         rectangle.setWidth(20);
@@ -246,8 +248,8 @@ public class Square {
             return rectangle;
         }
         else {
-            rectangle.setFill(Color.BLUE);
-            return rectangle;
+            Node text = placedLetter.toDisplay();
+            return text;
         }
     }
 }

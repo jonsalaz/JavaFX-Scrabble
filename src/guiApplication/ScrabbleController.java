@@ -66,6 +66,7 @@ public class ScrabbleController {
     public void playerMove() {
         moveWord.setText("PLAYER MOVE");
         updateBoard();
+        updateTray();
     }
 
     private void updateBoard() {
@@ -79,10 +80,8 @@ public class ScrabbleController {
 
     private void updateTray() {
         trayDisplay.getChildren().clear();
-
         for (Tile tile: tray.getChildren()) {
             trayDisplay.getChildren().add(tile.toDisplay());
         }
-
     }
 }

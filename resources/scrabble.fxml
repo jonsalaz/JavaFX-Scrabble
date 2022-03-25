@@ -23,7 +23,7 @@
                <children>
                   <ImageView fitHeight="303.0" fitWidth="347.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/scrabble_board.png" />
+                        <Image url="@scrabble_board.png" />
                      </image>
                   </ImageView>
                   <GridPane alignment="CENTER" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="302.0" prefWidth="304.0" StackPane.alignment="CENTER">

@@ -13,7 +13,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ScrabbleController.initializeGame();
         Parent root = FXMLLoader.load(getClass().getResource("/scrabble.fxml"));
         primaryStage.setTitle("Scrabble!");
         primaryStage.setScene(new Scene(root));

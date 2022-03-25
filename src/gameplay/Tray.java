@@ -90,7 +90,7 @@ public class Tray {
      */
     @Override
     public String toString() {
-        StringBuilder temp = new StringBuilder("gameplay.Tray: ");
+        StringBuilder temp = new StringBuilder("Tray: ");
         for (Tile letter: tray) {
             temp.append(letter.toString());
         }

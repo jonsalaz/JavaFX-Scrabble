@@ -9,23 +9,24 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiApplication.ScrabbleController">
    <children>
       <VBox alignment="CENTER" layoutX="7.0" prefHeight="400.0" prefWidth="587.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="349.0" prefWidth="346.0">
+            <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="253.0" prefWidth="315.0">
                <children>
-                  <ImageView fitHeight="351.0" fitWidth="347.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="303.0" fitWidth="347.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../resources/scrabble_board.png" />
                      </image>
                   </ImageView>
-                  <GridPane alignment="CENTER" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="345.0" prefWidth="345.0" StackPane.alignment="CENTER">
+                  <GridPane alignment="CENTER" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="302.0" prefWidth="304.0" StackPane.alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -63,7 +64,13 @@
                   </GridPane>
                </children>
             </StackPane>
-            <FlowPane alignment="CENTER" hgap="10.0" prefHeight="38.0" prefWidth="600.0">
+            <HBox alignment="CENTER" prefHeight="37.0" prefWidth="600.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tray:" wrappingWidth="31.336698532104492" />
+                  <HBox prefHeight="37.0" prefWidth="271.0" />
+               </children>
+            </HBox>
+            <FlowPane alignment="CENTER" hgap="10.0" prefHeight="59.0" prefWidth="600.0">
                <children>
                   <TextField />
                   <RadioButton mnemonicParsing="false" text="Across" />

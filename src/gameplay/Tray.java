@@ -20,6 +20,13 @@ public class Tray {
         }
     }
 
+    public Tray(TileBag tileBag) {
+        this.tray = new ArrayList<>();
+        for(int i = 0; i < 7; i++) {
+            tray.add(tileBag.draw());
+        }
+    }
+
     /**
      * Checks whether the tray contains the currently letter or contains a wild card that can
      * be used as the letter.

@@ -1,6 +1,7 @@
 package gameplay;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TileBag {
     private ArrayList<Tile> tiles;
@@ -14,5 +15,9 @@ public class TileBag {
         for (int i = 0; i < freq; i++) {
             tiles.add(new Tile(c));
         }
+    }
+
+    public Tile draw() {
+        return tiles.get(new Random().nextInt(tiles.size()));
     }
 }

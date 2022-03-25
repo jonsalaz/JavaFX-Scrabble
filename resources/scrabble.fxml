@@ -73,13 +73,13 @@
             </HBox>
             <FlowPane alignment="CENTER" hgap="10.0" prefHeight="59.0" prefWidth="600.0">
                <children>
-                  <TextField />
-                  <RadioButton mnemonicParsing="false" selected="true" text="Across">
+                  <TextField fx:id="moveWord" />
+                  <RadioButton fx:id="acrossButton" mnemonicParsing="false" selected="true" text="Across">
                      <toggleGroup>
                         <ToggleGroup fx:id="direction" />
                      </toggleGroup></RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Down" toggleGroup="$direction" />
-                  <Button mnemonicParsing="false" text="Play Move" />
+                  <RadioButton fx:id="downButton" mnemonicParsing="false" text="Down" toggleGroup="$direction" />
+                  <Button mnemonicParsing="false" onAction="#playerMove" text="Play Move" />
                </children>
             </FlowPane>
          </children>

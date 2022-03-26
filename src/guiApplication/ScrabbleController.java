@@ -84,31 +84,19 @@ public class ScrabbleController {
         int row = selected.getRow();
         int column = selected.getColumn();
         String word = moveWord.getText().toLowerCase().replace(" ", "");
-        Boolean down = downButton.isFocused();
+        Boolean down = downButton.isSelected();
 
-        if(board.getAnchors().isEmpty()) {
-            if(selected == board.getSquare(7, 7)) {
-                if (board.checkIfLegal(word, row, column, down, tray)) {
-                    int score = board.calculateScore(word, row, column, down, tray);
-                    playerScore += score;
-                    board.playMove(word, tray, score, row, column, down);
-                } else {
-                    System.out.println("Illegal move");
-                    return;
-                }
+        if (board.checkIfLegal(word, row, column, down, tray, selected)) {
+            int score = board.calculateScore(word, row, column, down, tray);
+            playerScore += score;
+            if(down) {
+                int temp = row;
+                row = column;
+                column = temp;
             }
-        }
-        else if(board.getAnchors().contains(selected) || selected.getPlacedLetter() != null) {
-            if (board.checkIfLegal(word, row, column, down, tray)) {
-                int score = board.calculateScore(word, row, column, down, tray);
-                playerScore += score;
-                board.playMove(word, tray, score, row, column, down);
-            } else {
-                System.out.println("Illegal Move 2");
-                return;
-            }
+            board.playMove(word, tray, score, row, column, down);
         } else {
-            System.out.println("Illegal move 3");
+            System.out.println("Illegal Move 2");
             return;
         }
 
@@ -116,6 +104,8 @@ public class ScrabbleController {
         for(int i = 0; i < (7-size); i++) {
             tray.add(tileBag.draw());
         }
+
+        selected = null;
 
         computerPlayer.solve();
 

@@ -223,22 +223,35 @@ public class Board {
         }
     }
 
-    public boolean checkIfLegal(String word, int row, int column, Boolean down, Tray tray) {
+    public boolean checkIfLegal(String word, int row, int column, Boolean down, Tray tray, Square selected) {
+        Boolean anchor = false;
+        if(getAnchors().isEmpty()) {
+            if (!(selected == board[7][7] && trie.search(word))) {
+                System.out.println("false right here");
+                return false;
+            }
+            anchor = true;
+        }
         ArrayList<Tile> removedTiles = new ArrayList<>();
         Boolean legal = true;
         word = word.toLowerCase();
         Boolean flipped = false;
         if(down) {
             transpose();
+            int temp = row;
+            row = column;
+            column = temp;
             flipped = true;
         }
 
+        if(!trie.search(word)) {
+            System.out.println("not a real word");
+            transpose();
+            return false;
+        }
+
         for(int i = 0; i < word.length(); i++) {
-            if(!trie.search(word)) {
-                legal = false;
-                System.out.println("not a real word");
-                break;
-            }else if(!board[row][column+i].getCrossCheck(this, trie)[Character.toLowerCase(word.charAt(i))-'a']) {
+            if(!board[row][column+i].getCrossCheck(this, trie)[Character.toLowerCase(word.charAt(i))-'a']) {
                 legal = false;
                 System.out.println("not in crosscheck");
                 break;
@@ -249,25 +262,34 @@ public class Board {
                 legal = false;
                 break;
             }
+
+            if(getAnchors().contains(board[row][column + i])){
+                System.out.println("No anchor included");
+                anchor = true;
+            }
             removedTiles.add(tray.get(word.charAt(i)));
             tray.remove(tray.get(word.charAt(i)));
         }
-
         for (Tile tile :
                 removedTiles) {
-            tray.add(tile);
+            if(tile != null) {
+                tray.add(tile);
+            }
         }
 
         if(flipped) {
             transpose();
         }
-        return legal;
+        return (legal && anchor);
     }
 
     public int calculateScore(String word, int row, int column, Boolean down, Tray tray) {
         Boolean flipped = false;
         if(down) {
             transpose();
+            int temp = row;
+            row = column;
+            column = temp;
             flipped = true;
         }
         int tempScore = 0;

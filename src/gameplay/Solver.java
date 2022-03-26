@@ -110,6 +110,8 @@ public class Solver {
         board.transpose();
         System.out.println("Solution " + moveWord + " has " + moveScore + " points");
         board.playMove(moveWord, tray, moveScore, moveRow, moveCol, transpose);
+
+        moveScore = 0;
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){
@@ -189,7 +191,7 @@ public class Solver {
                     return;
                 }
                 extendRight(partialWord + l.getLetter(),
-                        N.getChildren()[l.getLetter()-'a'], nextSquare, depth + 1);
+                        N.getChildren()[Character.toLowerCase(l.getLetter())-'a'], nextSquare, depth + 1);
             }
         }
     }

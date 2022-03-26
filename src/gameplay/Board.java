@@ -236,11 +236,16 @@ public class Board {
         for(int i = 0; i < word.length(); i++) {
             if(!trie.search(word)) {
                 legal = false;
+                System.out.println("not a real word");
                 break;
-            }else if(!board[row][column].getCrossCheck(this, trie)[Character.toLowerCase(word.charAt(i))-'a']) {
+            }else if(!board[row][column+i].getCrossCheck(this, trie)[Character.toLowerCase(word.charAt(i))-'a']) {
                 legal = false;
+                System.out.println("not in crosscheck");
                 break;
-            } else if(!tray.contains(word.charAt(i))) {
+            } else if(!tray.contains(word.charAt(i))
+                    && board[row][column+i].getPlacedLetter() != null
+                    && board[row][column+i].getPlacedLetter().getLetter() != word.charAt(i)) {
+                System.out.println("dont have tray it in tray.");
                 legal = false;
                 break;
             }

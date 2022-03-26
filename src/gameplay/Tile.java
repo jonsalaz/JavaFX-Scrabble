@@ -5,9 +5,14 @@
 package gameplay;
 
 import javafx.scene.Node;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import org.w3c.dom.css.Rect;
 
 import java.util.HashMap;
 
@@ -70,7 +75,16 @@ public class Tile {
     }
 
     public Node toDisplay() {
+        StackPane temp = new StackPane();
         Text text = new Text(Character.toString(letter));
-        return text;
+        Rectangle rect = new Rectangle();
+        rect.setHeight(20);
+        rect.setWidth(20);
+        rect.setFill(Color.GREY);
+        rect.setStroke(Color.BLACK);
+        rect.setStrokeWidth(1);
+
+        temp.getChildren().addAll(rect, text);
+        return temp;
     }
 }

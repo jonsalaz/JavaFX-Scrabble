@@ -34,7 +34,7 @@ public class Solver {
      * Checks for all possible moves on every anchor square through a backtracking algorithm found
      * in the paper The World's Fastest Scrabble Program by Andrew W. Appel and Guy J. Jacobson.
      */
-    public void solve() {
+    public int solve() {
         ArrayList<Square> anchorSquares = board.getAnchors();
         int limit;
 
@@ -109,9 +109,10 @@ public class Solver {
         }
         board.transpose();
         System.out.println("Solution " + moveWord + " has " + moveScore + " points");
-        board.playMove(moveWord, tray, moveScore, moveRow, moveCol, transpose);
-
+        board.playMove(moveWord, tray, moveRow, moveCol, transpose);
+        int temp = moveScore;
         moveScore = 0;
+        return temp;
     }
 
     private void leftPart(String partialWord, TrieNode N, int limit, Square anchorSquare){

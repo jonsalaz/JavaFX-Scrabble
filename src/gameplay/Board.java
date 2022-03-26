@@ -181,13 +181,12 @@ public class Board {
      * Given the conditions of a move, plays the move to the board.
      * @param moveWord The word to be played.
      * @param tray The players current tray.
-     * @param moveScore The move's score.
      * @param moveRow The move's intended row.
      * @param moveCol The move's intended column.
      * @param transpose Whether the move was transposed when the move was found (assuming only across moves are
      *                  able to be calculated).
      */
-    public void playMove(String moveWord, Tray tray, int moveScore, int moveRow, int moveCol, boolean transpose) {
+    public void playMove(String moveWord, Tray tray, int moveRow, int moveCol, boolean transpose) {
         boolean flipped = false;
         if(transpose) {
             this.transpose();
@@ -204,12 +203,12 @@ public class Board {
                 }
             }
             else if(tray.contains(moveWord.charAt(i))) {
-                //If tray does not contain a placed letter.
+                //If tray contains a placed letter.
                 Tile tile = tray.get(moveWord.charAt(i));
                 tray.remove(tile);
                 placement.setPlacedLetter(tile);
                 if(tile.getLetter() == '*') {
-                    tile.setLetter(moveWord.charAt(i));
+                    tile.setLetter(Character.toUpperCase(moveWord.charAt(i)));
                 }
                 if(i != moveWord.length() - 1) {
                     placement = board[placement.getRow()][placement.getColumn() + 1];
@@ -227,7 +226,6 @@ public class Board {
         Boolean anchor = false;
         if(getAnchors().isEmpty()) {
             if (!(selected == board[7][7] && trie.search(word))) {
-                System.out.println("false right here");
                 return false;
             }
             anchor = true;
@@ -245,7 +243,6 @@ public class Board {
         }
 
         if(!trie.search(word)) {
-            System.out.println("not a real word");
             if(flipped) {
                 transpose();
             }
@@ -255,18 +252,16 @@ public class Board {
         for(int i = 0; i < word.length(); i++) {
             if(!board[row][column+i].getCrossCheck(this, trie)[Character.toLowerCase(word.charAt(i))-'a']) {
                 legal = false;
-                System.out.println("not in crosscheck");
                 break;
             } else if(!tray.contains(word.charAt(i))
                     && board[row][column+i].getPlacedLetter() != null
-                    && board[row][column+i].getPlacedLetter().getLetter() != word.charAt(i)) {
+                    && Character.toLowerCase(board[row][column+i].getPlacedLetter().getLetter()) != word.charAt(i)) {
                 System.out.println("dont have tray it in tray.");
                 legal = false;
                 break;
             }
 
             if(getAnchors().contains(board[row][column + i])){
-                System.out.println("No anchor included");
                 anchor = true;
             }
             removedTiles.add(tray.get(word.charAt(i)));

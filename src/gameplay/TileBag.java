@@ -18,6 +18,9 @@ public class TileBag {
     }
 
     public Tile draw() {
+        if(tiles.isEmpty()) {
+            return null;
+        }
         Collections.shuffle(tiles);
         Tile tile = tiles.get(0);
         tiles.remove(tile);

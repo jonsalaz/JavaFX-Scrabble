@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -26,7 +27,9 @@ public class ScrabbleController {
     @FXML
     private RadioButton downButton;
     @FXML
-    private RadioButton acrossButton;
+    private Text computerScoreText;
+    @FXML
+    private Text playerScoreText;
 
     private Solver computerPlayer;
     private TileBag tileBag;
@@ -97,27 +100,70 @@ public class ScrabbleController {
                 row = column;
                 column = temp;
             }
-            board.playMove(word, tray, score, row, column, down);
+            board.playMove(word, tray, row, column, down);
         } else {
-            System.out.println("Illegal Move 2");
             return;
         }
 
         int size = tray.size();
         for(int i = 0; i < (7-size); i++) {
-            tray.add(tileBag.draw());
+            Tile tile = tileBag.draw();
+            if(tile == null) {
+                checkGameEnd(computerTray);
+            } else {
+                tray.add(tile);
+            }
         }
 
         selected = null;
 
-        computerPlayer.solve();
+        computerScore += computerPlayer.solve();
 
         size = computerTray.size();
         for(int i = 0; i < (7-size); i++) {
-            computerTray.add(tileBag.draw());
+            Tile tile = tileBag.draw();
+            if(tile == null) {
+                checkGameEnd(tray);
+            } else {
+                computerTray.add(tile);
+            }
         }
+
+        updateScores(playerScore, computerScore);
         updateBoard();
         updateTray();
+    }
+
+    private void checkGameEnd(Tray tray) {
+        if(tray.isBingo()) {
+            for (Tile tile :
+                    this.tray.getChildren()) {
+                playerScore -= Tile.getScore(tile.getLetter());
+            }
+
+            for(Tile tile: this.computerTray.getChildren()) {
+                computerScore -= Tile.getScore(tile.getLetter());
+            }
+
+            if(computerScore > playerScore) {
+                this.playerScoreText.setText("COMPUTER PLAYER WINS!");
+                this.computerScoreText.setText("WITH A SCORE OF " + computerScore);
+            } else if(computerScore == playerScore) {
+                this.playerScoreText.setText("IT'S A TIE");
+                this.computerScoreText.setText("WITH A SCORE OF " + computerScore);
+            } else {
+                this.playerScoreText.setText("HUMAN PLAYER WINS!");
+                this.computerScoreText.setText("WITH A SCORE OF " + playerScore);
+            }
+        }
+    }
+
+    private void updateScores(int playerScore, int computerScore) {
+        this.playerScore = playerScore;
+        this.computerScore = computerScore;
+
+        this.playerScoreText.setText("Player Score: " + playerScore);
+        this.computerScoreText.setText("Computer Score: " + computerScore);
     }
 
     private void updateBoard() {

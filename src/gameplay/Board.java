@@ -246,7 +246,9 @@ public class Board {
 
         if(!trie.search(word)) {
             System.out.println("not a real word");
-            transpose();
+            if(flipped) {
+                transpose();
+            }
             return false;
         }
 

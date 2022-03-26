@@ -28,7 +28,7 @@ public class Tray {
     }
 
     /**
-     * Checks whether the tray contains the currently letter or contains a wild card that can
+     * Checks whether the tray currently contains the letter or contains a wild card that can
      * be used as the letter.
      * @param c The character searched for.
      * @return A boolean representing whether the tray has a Tile that can be played as c.
@@ -107,5 +107,9 @@ public class Tray {
 
     public ArrayList<Tile> getChildren() {
         return tray;
+    }
+
+    public int size() {
+        return tray.size();
     }
 }

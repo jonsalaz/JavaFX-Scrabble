@@ -95,6 +95,7 @@
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="downButton" mnemonicParsing="false" text="Down" toggleGroup="$direction" />
                   <Button mnemonicParsing="false" onAction="#playerMove" text="Play Move" />
+                  <Button mnemonicParsing="false" onAction="#passTurn" text="Pass Turn" />
                </children>
             </FlowPane>
          </children>

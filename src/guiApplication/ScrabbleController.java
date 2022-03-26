@@ -109,7 +109,9 @@ public class ScrabbleController {
         for(int i = 0; i < (7-size); i++) {
             Tile tile = tileBag.draw();
             if(tile == null) {
-                checkGameEnd(computerTray);
+                if(checkGameEnd(tray)) {
+                    return;
+                }
             } else {
                 tray.add(tile);
             }
@@ -123,7 +125,9 @@ public class ScrabbleController {
         for(int i = 0; i < (7-size); i++) {
             Tile tile = tileBag.draw();
             if(tile == null) {
-                checkGameEnd(tray);
+                if(checkGameEnd(computerTray)) {
+                    return;
+                }
             } else {
                 computerTray.add(tile);
             }
@@ -134,7 +138,27 @@ public class ScrabbleController {
         updateTray();
     }
 
-    private void checkGameEnd(Tray tray) {
+    public void passTurn() {
+        computerScore += computerPlayer.solve();
+
+        int size = computerTray.size();
+        for(int i = 0; i < (7-size); i++) {
+            Tile tile = tileBag.draw();
+            if(tile == null) {
+                if(checkGameEnd(computerTray)) {
+                    return;
+                }
+            } else {
+                computerTray.add(tile);
+            }
+        }
+
+        updateScores(playerScore, computerScore);
+        updateBoard();
+    }
+
+    private Boolean checkGameEnd(Tray tray) {
+        System.out.println("Game has ended.");
         if(tray.isBingo()) {
             for (Tile tile :
                     this.tray.getChildren()) {
@@ -155,7 +179,9 @@ public class ScrabbleController {
                 this.playerScoreText.setText("HUMAN PLAYER WINS!");
                 this.computerScoreText.setText("WITH A SCORE OF " + playerScore);
             }
+            return true;
         }
+        return false;
     }
 
     private void updateScores(int playerScore, int computerScore) {

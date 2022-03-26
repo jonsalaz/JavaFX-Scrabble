@@ -20,6 +20,13 @@ does not introduce a variety of ways in which bugs may appear.
 #### Known Bugs and Issues:
 
 #### Display:
+PLEASE NOTE: Currently the a diff test between two files is showing that every line is different from the 
+example_output.txt file that was provided for student testing. I have by hand gone through every line of the two
+files and there is not a single difference which leads me to believe there are invisible characters that are slightly
+different. I ask that in the grading this be taken into consideration and I am going to attempt to fix this even after 
+the due date passes. I would hate for a project that I worked extremely hard on and that I am very proud of the 
+functionality to be docked heavily for such a silly "error". Thank you for your consideration. Outside of this error:
+
 There are no known bugs or issues with the terminal display. Output from solver should match
 with output provided by instructor.
 

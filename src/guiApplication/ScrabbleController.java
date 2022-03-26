@@ -28,16 +28,21 @@ public class ScrabbleController {
     @FXML
     private RadioButton acrossButton;
 
+    private Solver computerPlayer;
     private TileBag tileBag;
     private Trie trie;
     private Board board;
     private Tray computerTray;
     private Tray tray;
     private Square selected;
+    private int playerScore;
+    private int computerScore;
 
 
     public void initialize() {
         //Initialize tiles.
+        playerScore = 0;
+        computerScore = 0;
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream is = classLoader.getResourceAsStream("scrabble_tiles.txt");
         Scanner freqScanner = new Scanner(is);
@@ -63,27 +68,33 @@ public class ScrabbleController {
         for(int i = 0; i < dim; i++) {
             rows[i] = boardScanner.nextLine();
         }
-        board = new Board(dim, rows);
+        board = new Board(dim, rows, trie);
         updateBoard();
 
         //Initialize players tray.
         computerTray = new Tray(tileBag);
         tray = new Tray(tileBag);
         updateTray();
+
+        this.computerPlayer = new Solver(board, computerTray, trie);
     }
 
     public void playerMove() {
-        moveWord.setText("PLAYER MOVE");
         int row = selected.getRow();
         int column = selected.getColumn();
-        String word = moveWord.getText().toLowerCase();
-        Boolean across = acrossButton.isFocused();
+        String word = moveWord.getText().toLowerCase().replace(" ", "");
+        Boolean down = downButton.isFocused();
 
         //TODO: Check if it's a legal move.
-        board.checkIfLegal(word, row, column, across, tray);
-        //TODO: Calculate the score.
-        //TODO: Play the move.
+        if(board.checkIfLegal(word, row, column, down, tray)) {
+            int score = board.calculateScore(word, row, column, down, tray);
+            playerScore += score;
+            board.playMove(word, tray, score, row, column, down);
+        } else {
+            return;
+        }
 
+        computerPlayer.solve();
         updateBoard();
         updateTray();
     }

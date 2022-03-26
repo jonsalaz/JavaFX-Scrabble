@@ -223,15 +223,175 @@ public class Board {
         }
     }
 
-    public boolean checkIfLegal(String word, int row, int column, Boolean across, Tray tray) {
+    public boolean checkIfLegal(String word, int row, int column, Boolean down, Tray tray) {
+        ArrayList<Tile> removedTiles = new ArrayList<>();
+        Boolean legal = true;
+        word = word.toLowerCase();
+        Boolean flipped = false;
+        if(down) {
+            transpose();
+            flipped = true;
+        }
+
         for(int i = 0; i < word.length(); i++) {
-            if(!board[row][column].getCrossCheck(this, trie)[word.charAt(i)-'a']) {
-                return false;
+            if(!trie.search(word)) {
+                legal = false;
+                break;
+            }else if(!board[row][column].getCrossCheck(this, trie)[Character.toLowerCase(word.charAt(i))-'a']) {
+                legal = false;
+                break;
             } else if(!tray.contains(word.charAt(i))) {
-                //TODO: Remove and put tiles back so that we can confirm whether the tray contains enough of each letter.
-                return false;
+                legal = false;
+                break;
+            }
+            removedTiles.add(tray.get(word.charAt(i)));
+            tray.remove(tray.get(word.charAt(i)));
+        }
+
+        for (Tile tile :
+                removedTiles) {
+            tray.add(tile);
+        }
+
+        if(flipped) {
+            transpose();
+        }
+        return legal;
+    }
+
+    public int calculateScore(String word, int row, int column, Boolean down, Tray tray) {
+        Boolean flipped = false;
+        if(down) {
+            transpose();
+            flipped = true;
+        }
+        int tempScore = 0;
+        int wordMult = 1;
+        int counter = 0;
+
+        //Letter and Word score for the word just placed.
+        for (int i = 0; i < word.length(); i++) {
+            wordMult *= getSquare(row, column + i).getWordMultiplier();
+            tempScore += Tile.getScore(word.charAt(counter)) * getSquare(row,
+                    column+i).getLetterMultiplier();
+            counter++;
+        }
+        tempScore *= wordMult;
+
+        //Letter and word score any additional words formed in the tangential direction.
+        if(row == 0) {
+            //Check for words formed in the down direction.
+            counter = 0;
+            for(int i = 0; i < word.length(); i++) {
+                if(getSquare(row+1, column+i).getPlacedLetter() != null
+                        && getSquare(row, column+i).getPlacedLetter() == null) {
+                    //Re-add placed letter with letter multiplier.
+                    tempScore += Tile.getScore(word.charAt(counter))
+                            * getSquare(row, column + i).getLetterMultiplier();
+                    //Get the square below the placed letter as our starting point.
+                    Square temp = getSquare(row+1, column+i);
+                    //Add the starting letters score.
+                    tempScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                    //Loop until a null character is reached or the index will be out of bounds.
+                    while((temp.getRow()+1 < getRowLength())
+                            && getSquare(temp.getRow()+1, column+i).getPlacedLetter() != null) {
+                        //Get the next square (if it is not out of bounds and has a letter placed.)
+                        temp = getSquare(temp.getRow()+1, column+i);
+                        //Add the score of the square to the score.
+                        tempScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                    }
+                }
+                counter++;
             }
         }
-        return false;
+        //If the row is the bottom row of the board. Only check for up words.
+        else if(row == getRowLength()-1) {
+            counter = 0;
+            for(int i = 0; i < word.length(); i++) {
+                if(getSquare(row-1, column+i).getPlacedLetter() != null
+                        && getSquare(row, column+i).getPlacedLetter() == null) {
+                    //Re-add placed letter with letter multiplier.
+                    tempScore += Tile.getScore(word.charAt(counter))
+                            * getSquare(row, column + i).getLetterMultiplier();
+                    //Get the square above the placed letter as our starting point.
+                    Square temp = getSquare(row-1, column+i);
+                    //Add the starting letters score.
+                    tempScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                    //Loop until a null character is reached or the index will be out of bounds.
+                    while((temp.getRow()-1 > 0)
+                            && getSquare(temp.getRow()-1, column+i).getPlacedLetter() != null) {
+                        //Get the next square (if it is not out of bounds and has a letter placed.)
+                        temp = getSquare(temp.getRow()-1, column+i);
+                        //Add the score of the square to the score.
+                        tempScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                    }
+                }
+                counter++;
+            }
+        }
+        else {
+            //Check for down words and up words.
+            counter = 0;
+            for(int i = 0; i < word.length(); i++) {
+                int localMult = 1;
+                int localScore = 0;
+                //Only read the placed letter once instead of twice if there are letters above AND below
+                if((getSquare(row + 1, column+i).getPlacedLetter() != null
+                        || getSquare(row-1, column+i).getPlacedLetter() != null)
+                        && getSquare(row, column+i).getPlacedLetter() == null) {
+                    //Re-add placed letter with letter multiplier.
+                    localScore += Tile.getScore(word.charAt(counter))
+                            * getSquare(row, column + i).getLetterMultiplier();
+                    //Get word multiplier if there is one.
+                    localMult *= getSquare(row, column + i).getWordMultiplier();
+                }
+
+                //Check if a word is formed in the down direction.
+                if(getSquare(row+1, column+i).getPlacedLetter() != null
+                        && getSquare(row, column+i).getPlacedLetter() == null) {
+                    //Get the square below the placed letter as our starting point.
+                    Square temp = getSquare(row+1, column+i);
+                    //Add the starting letters score.
+                    localScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                    //Loop until a null character is reached or the index will be out of bounds.
+                    while((temp.getRow()+1 < getRowLength())
+                            && getSquare(temp.getRow()+1, column+i).getPlacedLetter() != null) {
+                        //Get the next square (if it is not out of bounds and has a letter placed.)
+                        temp = getSquare(temp.getRow()+1, column+i);
+                        //Add the score of the square to the score.
+                        localScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                    }
+                }
+
+                //Check if a word was formed from the top.
+                if(getSquare(row-1, column+i).getPlacedLetter() != null
+                        && getSquare(row, column+i).getPlacedLetter() == null) {
+                    //Get the square above the placed letter as our starting point.
+                    Square temp = getSquare(row-1, column+i);
+                    //Add the starting letters score.
+                    localScore += Tile.getScore(temp.getPlacedLetter().getLetter());
+                    //Loop until a null character is reached or the index will be out of bounds.
+                    while((temp.getRow()-1 > 0)
+                            && getSquare(temp.getRow()-1, column+i).getPlacedLetter() != null) {
+                        //Get the next square (if it is not out of bounds and has a letter placed.)
+                        temp = getSquare(temp.getRow()-1, column+i);
+                        //Add the score of the square to the score.
+                        localScore += Tile.getScore(Character.toLowerCase(temp.getPlacedLetter().getLetter()));
+                    }
+                }
+                localScore *= localMult;
+                tempScore += localScore;
+                counter++;
+            }
+        }
+
+        if(tray.isBingo()) {
+            tempScore += 50;
+        }
+
+        if(flipped) {
+            transpose();
+        }
+        return tempScore;
     }
 }

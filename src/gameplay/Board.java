@@ -76,7 +76,11 @@ public class Board {
         String temp = "";
         for(int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
-                temp+= board[r][c].toString() + " ";
+                if(c != board[r].length - 1) {
+                    temp += board[r][c].toString() + " ";
+                } else {
+                    temp += board[r][c].toString();
+                }
             }
             if(r != board.length-1) {
                 temp += "\n";
@@ -228,6 +232,16 @@ public class Board {
         }
     }
 
+    /**
+     * Checks if a move is legal or not based on the factors for the move.
+     * @param word The word to be placed.
+     * @param row The starting row.
+     * @param column The starting column.
+     * @param down A boolean representing the whether the word is to be played downwards.
+     * @param tray The player's tray.
+     * @param selected The starting square that is selected.
+     * @return A boolean representing whether the move is a legal move.
+     */
     public boolean checkIfLegal(String word, int row, int column, Boolean down, Tray tray, Square selected) {
         Boolean anchor = false;
         if(getAnchors().isEmpty()) {

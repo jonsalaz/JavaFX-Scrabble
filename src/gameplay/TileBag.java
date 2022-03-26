@@ -1,13 +1,13 @@
 package gameplay;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
 
 public class TileBag {
     private ArrayList<Tile> tiles;
 
     public TileBag() {
-        tiles = new ArrayList<>(100);
+        tiles = new ArrayList<>();
     }
 
     public void addTile(char c, int point, int freq) {
@@ -18,6 +18,9 @@ public class TileBag {
     }
 
     public Tile draw() {
-        return tiles.get(new Random().nextInt(tiles.size()));
+        Collections.shuffle(tiles);
+        Tile tile = tiles.get(0);
+        tiles.remove(tile);
+        return tile;
     }
 }

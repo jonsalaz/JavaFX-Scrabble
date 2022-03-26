@@ -30,3 +30,50 @@ cases.
 
 ### GUI Scrabble Game:
 
+#### How to use:
+In order to run the GUI Scrabble Game use the command: <br>
+```java -jar scrabbleSolver.jar``` <br>
+All resources are included within the jar and the program does not require any additional file input.
+
+
+In order to play a move, the player must first select a square on the board by clicking on one of the spaces.
+Both unfilled and filled spots are available to be selected as the starting point of the players move. Next,
+the player must type the word they wish to play into the TextField on the bottom quarter of the GUI. Finally, the player
+must use the RadioButtons to decide whether this move is to be played in an across or down fashion. When the player is
+ready to finalize their move, they may hit the "Play Move" button in order to place their move. The move will not be
+placed if the move entered is not valid.
+
+Example of a valid move: <br>
+![Example of a Valid Move](/docs/exampleImage.png)
+
+Please note: When entering a move, if the word contains letters already on the board, the letters on the board must
+still be included when typing into the TextField. <br>
+For example: <br>
+To play the word "hello" while using an "e" already on the board: <br>
+Correct: "hello" <br>
+Incorrect: "hllo" <br>
+
+Please note: When selecting a square to start the move on, the square will be highlighted red.
+On the first move, the word played MUST begin on the center tile. The move will not be played if starting
+on any other tile. For convenience, on the first move, the center tile is preselected.
+
+
+#### Implementation:
+The GUI Scrabble game uses the foundation of the Terminal Solver in order to allow the computer player to take a turn.
+In addition, parts of the Terminal Solver were refactored in order to create a more universally applicable score checker
+and legal move checker. As far as GUI aspects are concerned, the layout was designed using FXML and the logic was 
+implemented using user input directly to the GUI elements through various action event listeners. 
+
+#### Known Bugs and Issues:
+
+#### Display:
+There are no known bugs or issues with the GUI Display; however, the grip pane does not precisely align with the 
+image of the scrabble board, likely due to inaccuracies in matching up the padding and other various sizing elements.
+
+#### Functionality:
+There are no known bugs or issues with the GUI Functionality or solver functionality; however, it may be useful to note
+that for this implementation I deemed it necessary to let the player pass their turn rather than swap out their current
+tiles for new tiles. This choice was made due to the fact that it felt inauthentic to allow the player to swap out their
+tiles for new tiles when the computer player has no "intuition" of probabilities or the ability to swap their
+own tiles out. Furthermore, as a demonstration of the solvers power, it becomes much easier to gauge the solver's 
+abilities by simply observing as the solver takes a series of turns while the player repeatedly passes their turn. 

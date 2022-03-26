@@ -81,6 +81,9 @@ public class ScrabbleController {
     }
 
     public void playerMove() {
+        if(selected == null) {
+            return;
+        }
         int row = selected.getRow();
         int column = selected.getColumn();
         String word = moveWord.getText().toLowerCase().replace(" ", "");

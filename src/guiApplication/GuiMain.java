@@ -1,3 +1,7 @@
+/**
+ * Author: Jonathan Salazar
+ * Entry point for the javaFX GUI Scrabble program.
+ */
 package guiApplication;
 
 import javafx.application.Application;

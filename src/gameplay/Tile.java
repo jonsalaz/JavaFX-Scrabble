@@ -5,14 +5,10 @@
 package gameplay;
 
 import javafx.scene.Node;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import org.w3c.dom.css.Rect;
 
 import java.util.HashMap;
 
@@ -74,6 +70,10 @@ public class Tile {
         return Character.toString(letter);
     }
 
+    /**
+     * Determines the Tile representation as a javaFX Node.
+     * @return The node representation of the Tile object.
+     */
     public Node toDisplay() {
         StackPane temp = new StackPane();
         Text text = new Text(Character.toString(letter));

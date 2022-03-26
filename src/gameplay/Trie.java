@@ -42,25 +42,6 @@ public class Trie {
         scanner.close();
     }
 
-    private void insert(String word) {
-        int index;
-        int length = word.length();
-        word = word.replace("[^A-Za-z]+", "");
-        TrieNode current = ROOT;
-
-        for (int level = 0; level < length; level ++) {
-            //Adjusts ascii values for lower case letters to be 0-25 to match the indexing
-            //for children of the current node.
-            index = word.charAt(level) - 97;
-            if (current.getChildren()[index] == null) {
-                current.getChildren()[index] = new TrieNode();
-            }
-            current = current.getChildren()[index];
-        }
-        //Set the last gameplay.TrieNode in the word as a terminal node.
-        current.setTerminal();
-    }
-
     /**
      * Checks if the given string is a valid word in the Trie.
      * @param word the word to be checked.
@@ -81,7 +62,31 @@ public class Trie {
         }
         return nextNode.isTerminal();
     }
+
+    /**
+     * Getter for the root node of the Trie.
+     * @return Root node of the Trie.
+     */
     public TrieNode getRoot() {
         return ROOT;
+    }
+
+    private void insert(String word) {
+        int index;
+        int length = word.length();
+        word = word.replace("[^A-Za-z]+", "");
+        TrieNode current = ROOT;
+
+        for (int level = 0; level < length; level ++) {
+            //Adjusts ascii values for lower case letters to be 0-25 to match the indexing
+            //for children of the current node.
+            index = word.charAt(level) - 97;
+            if (current.getChildren()[index] == null) {
+                current.getChildren()[index] = new TrieNode();
+            }
+            current = current.getChildren()[index];
+        }
+        //Set the last gameplay.TrieNode in the word as a terminal node.
+        current.setTerminal();
     }
 }

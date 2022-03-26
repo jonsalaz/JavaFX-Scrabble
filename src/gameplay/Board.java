@@ -38,6 +38,12 @@ public class Board {
         }
     }
 
+    /**
+     * Constructor class for Board object.
+     * @param dim The dimensions of a square board.
+     * @param rows A string array with each string representing a row of the board.
+     * @param trie A dictionary represented as a Trie.
+     */
     public Board(int dim, String[] rows, Trie trie) {
         board = new Square[dim][dim];
         this.trie = trie;
@@ -280,6 +286,16 @@ public class Board {
         return (legal && anchor);
     }
 
+    /**
+     * Calculates the score of a given move give the word, starting row and column, a boolean value representing whether
+     * the move is to be played in a down direction and the tray of the player who is making the move.
+     * @param word The word to be played.
+     * @param row The row in which the word will start.
+     * @param column The column in which the word will start.
+     * @param down A boolean representing whether the move will be played downwards.
+     * @param tray The player's tray.
+     * @return An integer with the total score value of the player's move.
+     */
     public int calculateScore(String word, int row, int column, Boolean down, Tray tray) {
         Boolean flipped = false;
         if(down) {

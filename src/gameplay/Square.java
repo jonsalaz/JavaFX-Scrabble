@@ -239,6 +239,10 @@ public class Square {
         this.placedLetter = tile;
     }
 
+    /**
+     * Determines the representation of the Square as a javaFX Node.
+     * @return The node that represents the Square object.
+     */
     public Node toDisplay() {
         Rectangle rectangle = new Rectangle();
         rectangle.setHeight(20);

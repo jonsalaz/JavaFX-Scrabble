@@ -1,3 +1,7 @@
+/**
+ * Author: Jonathan Salazar
+ * ScrabbleController is the controller connected to all the FXML components allowing for user interaction with the GUI.
+ */
 package guiApplication;
 
 import gameplay.*;
@@ -42,6 +46,10 @@ public class ScrabbleController {
     private int computerScore;
 
 
+    /**
+     * The initialization of all objects and display components for the start of the game including the board, trie
+     * player scores, solver, tilebag, and trie. As well as any graphical components necessary.
+     */
     public void initialize() {
         //Initialize tiles.
         playerScore = 0;
@@ -83,6 +91,11 @@ public class ScrabbleController {
         this.computerPlayer = new Solver(board, computerTray, trie);
     }
 
+    /**
+     * Invoked when the player is ready to place their move, this function handles the execution of the player's move
+     * as well as the proceeding move made by the computer player. After both players have had a chance to make a move
+     * it calls on helper functions to update the display components of the GUI.
+     */
     public void playerMove() {
         if(selected == null) {
             return;
@@ -138,6 +151,9 @@ public class ScrabbleController {
         updateTray();
     }
 
+    /**
+     * A function that is invoked to allow the computer player to make a move when the player wants to pass their turn.
+     */
     public void passTurn() {
         computerScore += computerPlayer.solve();
 

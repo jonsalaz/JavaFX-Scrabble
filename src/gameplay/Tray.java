@@ -20,6 +20,10 @@ public class Tray {
         }
     }
 
+    /**
+     * Constructor class that automatically draws the first seven tiles from the tileBag.
+     * @param tileBag The tileBag that is being used for the current game.
+     */
     public Tray(TileBag tileBag) {
         this.tray = new ArrayList<>();
         for(int i = 0; i < 7; i++) {
@@ -105,10 +109,18 @@ public class Tray {
         return tray.isEmpty();
     }
 
+    /**
+     * Returns the children of the tray object.
+     * @return An ArrayList representation of the tiles on the tray of a player.
+     */
     public ArrayList<Tile> getChildren() {
         return tray;
     }
 
+    /**
+     * Getter for the number of tiles on the tray.
+     * @return An int representing the number of tiles on the tray.
+     */
     public int size() {
         return tray.size();
     }

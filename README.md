@@ -20,13 +20,10 @@ does not introduce a variety of ways in which bugs may appear.
 #### Known Bugs and Issues:
 
 #### Display:
-There are no known bugs or issues with the terminal display. Output from solver should match
-with output provided by instructor.
+There are no known bugs or issues with the terminal display. 
 
 #### Functionality:
-There are no known bugs or issues with the functionality of the terminal solver. Solver
-passes every example test case given by the instructor as well as a variety of other test
-cases.
+There are no known bugs or issues with the functionality of the terminal solver. 
 
 ### GUI Scrabble Game:
 
